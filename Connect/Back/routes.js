@@ -24,6 +24,10 @@ app.get('/', (req, res)=>{
     res.render('main', {layout: 'index'})
 });
 
-app.get('/mainpage', (req, res)=>{
-    res.render('mainpage', {layout: 'mainpagelayout'})
-})
+app.get('/home', (req, res)=>{
+    res.render('home', {layout: 'homeindex'})
+});
+
+app.get('/profile', (req, res)=>{
+    res.render('profile', {layout: 'profileindex'})
+});
