@@ -1,0 +1,193 @@
+
+body{
+	height: 100%;
+	margin:0px;
+	padding:0px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.wrapper
+{
+	
+	
+	margin: 0 auto;
+	width: 960px;
+	height: 100%;
+}
+
+/*========HEADER SECTION ===========*/
+
+.header
+{
+	display: flex;
+	flex-direction: row;
+	
+	width: 100%;
+	height: 80px;
+	background-color: #2f085c;
+}
+
+
+.logoletter
+{
+	margin-top:7px;
+	margin-bottom:5px;
+
+}
+
+
+.loginuser /*--FORM--*/
+{
+	float:right;
+	margin-top: 8px;
+	color: white;
+	font-size: 14px;
+	height: auto;
+}
+
+.login{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 80px;
+	
+}
+
+ .inputtext 
+{
+	margin-left: 2px;
+	border: 1px solid black;
+	width: 145px;
+	height: 18px;
+}
+
+
+
+.logpassword
+{
+	font-size: 24px;
+}
+
+.loginbutton
+{
+	border: 0px;
+	background-color: #43d854;
+	height: 22px;
+	color:white;
+	font-size:14px;
+	margin-left: 2px;
+}
+
+.loginbutton:hover
+{
+	background-color: #009688;
+	border: 1px solid black;
+}
+
+.loginbutton:active
+{
+	transform: translateX(8px);
+	box-shadow: 4px 5px 4px #666;
+}
+
+
+/*==========MAIN SECTION ========*/
+
+
+
+
+
+
+.signup /* ---- SIGNUP SECTION --- */
+{
+	float:right;
+	font-size: 18px;
+
+}
+
+
+.signup h1 /*---- SIGNUP HEADING --*/
+{
+	font-size: 45px;
+	margin: 0px;
+	padding-top: 10%;
+	padding-bottom: 4%;
+}
+
+.signup .inputtext2
+{
+	width: 250px;
+	height: 32px;
+	font-size: 18px;
+	border-radius: 5px;
+	border: 1px solid #bdc7d8;
+	padding-left: 8px 10px;
+}
+
+#signuptable tr td
+{
+	padding-bottom: 10px;
+	padding-right: 10px;
+	text-align: right;
+}
+
+#pwd
+{
+	font-size:32px;
+}
+
+#signuptable #fm td
+{
+	text-align: left;
+}
+
+#signuptable tr #dob
+{
+	text-align: left;
+}
+
+#signuptable tr #dob select
+{
+	padding: 0px;
+	margin: 0px -4px;
+	border:2px solid #bdc7d8;
+	height: 32px;
+	font-size: 13px;
+}
+
+#joinnowbttn /*---JOING NOW BUTTON ---*/
+{
+
+	border:0px;
+	width: 100%;
+	height: 34px;
+	font-size: 18px;
+	background-color: #00aeef;
+	color:white;
+	box-shadow: 0 6px 4px #999;
+}
+
+#joinnowbttn:hover
+{
+	background-color: #4F82C3;
+}
+
+#joinnowbttn:active
+{
+  background-color: #2196F3;
+  box-shadow: 0 5px 4px #666;
+  transform: translateY(8px);
+}
+
+#joinbut
+{
+	height: 130px;
+}
+
+
+
+.logoletter:hover
+{
+	cursor: pointer;
+}
+
