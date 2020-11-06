@@ -27,7 +27,12 @@ body{
 	background-color: #2f085c;
 }
 
-
+.selector{
+	width: 260px;
+	height: 30px;
+	font-size: 17px;
+	
+}
 .logoletter
 {
 	margin-top:7px;
@@ -71,7 +76,7 @@ body{
 .loginbutton
 {
 	border: 0px;
-	background-color: #43d854;
+	background-color: #9d06f5;
 	height: 22px;
 	color:white;
 	font-size:14px;
@@ -84,11 +89,7 @@ body{
 	border: 1px solid black;
 }
 
-.loginbutton:active
-{
-	transform: translateX(8px);
-	box-shadow: 4px 5px 4px #666;
-}
+
 
 
 /*==========MAIN SECTION ========*/
