@@ -67,6 +67,12 @@ body{
 }
 
 
+.spanchecktrue{
+	float: right;
+	bottom: 20px;
+	right: 20px;
+	color: #2cd155;
+}
 
 .logpassword
 {

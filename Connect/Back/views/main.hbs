@@ -1,12 +1,13 @@
 	<div class="header">
 		<div class="wrapper">
 			<img src="images/OIP.jpg" width=160 height=70 class="logoletter"/>
-			<form action="./login/home.html" class="loginuser">
+			<form action="/user" class="loginuser" method="GET">
 				<div class="login" id="login">
 				
-				
-						<input placeholder="E-mail" type="text" id="email" class="inputtext" required/>
-						<input placeholder="Senha" type="password" id="logpassword" class="inputtext" required/>
+						<label for="email"></label>
+						<input placeholder="E-mail" type="text" id="email" class="inputtext" name="email"required/>
+						<label for="senha"></label>
+						<input placeholder="Senha" type="password" id="logpassword" class="inputtext" name="senha"required/>
 						<input type="submit" value="Logar" id="loginbutton" class="loginbutton">
 					
 				</div>
