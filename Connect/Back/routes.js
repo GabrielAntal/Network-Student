@@ -58,8 +58,8 @@ app.get('/profile', (req, res)=>{
 });
 
 app.post('/cad_post', (req,res)=>{
-    users.insertOne([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
-        tipo: req.body.tp }])
+    users.insertOne({nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
+        tipo: req.body.tp })
         .then(function(){
        var sts = res.status(200);
             Principal.check(sts);

@@ -7,17 +7,18 @@ module.exports = class Principal{
          }
     }
 
-    static async sendReq(nome, ra, email, senha, tipo){
-        const Axios = require("axios");
+    static async sendReq(){
+        const Axios = require('axios');
         Axios.post('http://localhost:3021/cad_post', {
-            fname: nome,
-            ra: ra,
-            emailadd: email,
-            pwd: senha,
-            tp: tipo
+            fname: document.getElementById("fname"),
+            ra: document.getElementById("ra"),
+            emailadd: document.getElementById("emailadd"),
+            pwd: document.getElementById("pwd"),
+            tp: document.getElementById("tipo")
         })
         .catch(error => console.error(error))
     }
-
 }
+
+    
 
