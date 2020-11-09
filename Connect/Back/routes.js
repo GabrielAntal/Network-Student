@@ -16,7 +16,7 @@ app.engine('.hbs', hbs({
     extname: 'hbs',
     layoutsDir: __dirname + '/views/layouts',
 }));
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname))
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
@@ -58,12 +58,11 @@ app.get('/profile', (req, res)=>{
 });
 
 app.post('/cad_post', (req,res)=>{
-    res.render('main', {layout: 'index'})
-    users.insertMany([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
+    users.insertOne([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
         tipo: req.body.tp }])
         .then(function(){
        var sts = res.status(200);
-         Principal.check(sts);
+            Principal.check(sts);
              
             console.log(req.body);
             res.end();

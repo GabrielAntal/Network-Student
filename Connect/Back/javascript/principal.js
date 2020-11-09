@@ -6,5 +6,18 @@ module.exports = class Principal{
             span.innerHTML = "Cadastrado!"   
          }
     }
+
+    static async sendReq(nome, ra, email, senha, tipo){
+        const Axios = require("axios");
+        Axios.post('http://localhost:3021/cad_post', {
+            fname: nome,
+            ra: ra,
+            emailadd: email,
+            pwd: senha,
+            tp: tipo
+        })
+        .catch(error => console.error(error))
+    }
+
 }
 

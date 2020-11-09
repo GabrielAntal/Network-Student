@@ -1,13 +1,13 @@
 	<div class="header">
 		<div class="wrapper">
-			<img src="images/OIP.jpg" width=160 height=70 class="logoletter"/>
+			<img src="../public/images/OIP.jpg" width=160 height=70 class="logoletter"/>
 			<form action="/user" class="loginuser" method="GET">
 				<div class="login" id="login">
 				
 						<label for="email"></label>
-						<input placeholder="E-mail" type="text" id="email" class="inputtext" name="email"required/>
+						<input placeholder="E-mail" type="text" id="email" class="inputtext" name="email" required/>
 						<label for="senha"></label>
-						<input placeholder="Senha" type="password" id="logpassword" class="inputtext" name="senha"required/>
+						<input placeholder="Senha" type="password" id="logpassword" class="inputtext" name="senha" required/>
 						<input type="submit" value="Logar" id="loginbutton" class="loginbutton">
 					
 				</div>
@@ -23,7 +23,7 @@
 		<div class="signup">
 			<h1>Faça seu cadastro</h1>
 
-			<form action="/cad_post" method="POST" accept-charset="UTF-8">
+			<form>
 				<table id="signuptable">
 					<tr>
 						<td><label for="fname">Nome:</label></td>
@@ -47,7 +47,7 @@
 					<tr>
 						<td><label for="tp">Tipo</label></td>
 						<td>
-							<select class="selector"  name="tp">
+							<select class="selector" id="tipo" name="tp">
 							<option value="Professor">Professor</option>
 							<option value="Aluno">Aluno</option>
 						</select>
@@ -58,7 +58,7 @@
 
 
 					<tr id="joinbut">
-						<td colspan=2 style="padding-left:40px;padding-right: 0px"><input id="joinnowbttn" type="submit" value="Cadastrar"/></td>
+						<td colspan=2 style="padding-left:40px;padding-right: 0px"><input id="joinnowbttn" type="button" onclick="sendReq(document.getElementById("fname").textContent, document.getElementById("lname").textContent, document.getElementById("emailadd").textContent, document.getElementById("pwd").textContent, document.getElementById("tipo").textContent)" value="Cadastrar"/></td>
 					</tr>
 
 				</table>
