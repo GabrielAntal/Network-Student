@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import crooped0 from '../images/OIP.jpg'
 
 class Home extends Component{
+
+
     render(){
         return(
             <div className="App">
                 <head>
-                    <title>Connect</title>
+                    <title>Connect</title> 
 
                     <link rel="stylesheet" type="text/css" href="../CSS/header.css" />
                     <link rel="stylesheet" type="text/css" href="../CSS/home.css" />
@@ -21,7 +24,7 @@ class Home extends Component{
                         <div class="wrapper">
                             
                             <a href="home.html">
-                                <img src="../images/OIP.jpg" width={120} height={45} class="logoletter"/>
+                                <img src={crooped0} width={120} height={45} class="logoletter"/>
                             </a>
                             <form id="searching">
                                 <input type="text" name="search" placeholder="Pesquisar" id="search"/>
@@ -64,7 +67,7 @@ class Home extends Component{
                             </div>
                             <div class="mainnotfixed" id="mainnotfixed">
                                 <div class="main mainpost" style="margin-bottom:20px; padding-bottom:10px;">
-                                    <div class="userimg"><img src="../images/profile/upload.png">
+                                    <div class="userimg"><img src="../images/profile/upload.png"/>
                                         </div>
                                         <div class="username">
                                             <p class="name" style="top:15px;">Nome do usuário</p>
@@ -93,6 +96,10 @@ class Home extends Component{
                     </div>
                 </body>
             </div>
+            
         );
     }
 }
+
+
+export default Home;
