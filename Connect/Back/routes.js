@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
-const Principal = require('./javascript/principal')
+const Principal = require('./javascript/principal').default
 //const multerConfig = require('./multer');
 
 // configuração express
