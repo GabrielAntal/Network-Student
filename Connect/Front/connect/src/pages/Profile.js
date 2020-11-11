@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import '../public/CSS/header.css';
+import '../public/CSS/profile.css';
+import logoConnect from '../public/images/OIP.jpg'
+import logoHome from '../public/images/login/home.png';
+
 
 class Profile extends Component{
-
-      
     render(){
         return(
-            <div className="App">
+            <div id="App" className="App">
                 <head>
                     <title>Connect</title>
 
-                    <link rel="stylesheet" type="text/css" href="../CSS/header.css"/>
-                    <link rel="stylesheet" type="text/css" href="../CSS/profile.css"/>
                     <script src="../javascript/header.js"/>
                     <script src="../javascript/profile.js"/>
 
@@ -21,7 +22,7 @@ class Profile extends Component{
                     <div class="header">
                         <div class="wrapper">
                             <a href="home.html">
-                                <img src="../images/OIP.jpg" width={120} height={45} class="logoletter"/>
+                                <img src={logoConnect} width={120} height={45} alt="logo Connect" class="logoletter"/>
                             </a>
 
                             <form id="searching">
@@ -32,7 +33,7 @@ class Profile extends Component{
                                 <ul>
                                     <li>
                                         <a href="home.html" onmouseover="headerchange(1);" onmouseout="headerorigin(1);">
-                                            <img src="../images/login/home.png" id="homaj-home"/>
+                                            <img src="../images/login/home.png" alt="logo home" id="homaj-home"/>
                                             <p id="p1">Home</p>
                                         </a>
                                     </li>
@@ -78,7 +79,11 @@ class Profile extends Component{
                                     <p class="slideEdit1">&#9998;</p>
                                     <img src="../images/profile/upload.png" title="Profile Pic" class="profilepic"/>
                                     <p id="sidename"> Nome Usuário</p>
-                                    <p id="logout"><a href="../index.html">Sair</a></p>
+                                    <p id="logout">
+                                        <Link to={'./'}>
+                                            <a>Sair</a>
+                                        </Link>
+                                    </p>
                                 </div>
                                 <div class="timeline">
 

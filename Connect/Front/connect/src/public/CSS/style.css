@@ -198,3 +198,6 @@ body{
 	cursor: pointer;
 }
 
+.selectorSpan{
+	padding-left: 40px; padding-right: 0px
+}
