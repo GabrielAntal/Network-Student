@@ -43,19 +43,53 @@ class Login extends Component{
         })
     }
 
-    cadastrarPost(){
+    cadastrarUser(){
         const axios = require('axios')
         axios.post('http://localhost:3021/users',{
-            params:{
+            
                 fname: this.state.fname,
                 ra: this.state.ra,
                 emailadd: this.state.emailadd,
                 pwd: this.state.pwd,
                 tp: this.state.tp
-            }
+            
         }
-
+        
         )
+        console.log(this.state.fname)
+        console.log(this.state.ra)
+        console.log(this.state.emailadd)
+        console.log(this.state.pwd)
+        console.log(this.state.tp)
+    }
+
+    login(){
+        const axios = require('axios')
+        axios.get('http://localhost:3021/users', {
+            params: {
+                email: this.state.emailadd,
+                senha: this.state.pwd
+            }
+        })
+        .then(((response) => {
+            this.setState({
+                fname: response.name
+            })
+            axios.get('http;//localhost:3021/Home', {
+                params: {
+                    name: this.state.fname
+                }
+            })
+            .then(((response) =>{
+                console.log(response)
+            }))
+            .catch(((error) =>{
+                console.log(error);
+            }))
+        }))
+        .catch(((error) =>{
+            console.log(error);
+        }));
     }
 
     render(){
@@ -93,7 +127,7 @@ class Login extends Component{
                                     <tr>
                                         <td><label for="lname">RA:</label></td>
                                         <td><input type="text" id="lname" class="inputtext2" name="lname" value={this.state.ra} onChange={this.handleChangeRA.bind(this)} required/></td>
-                                    </tr>
+                                    </tr>                                                               
 
                                     <tr>
                                         <td><label for="emailadd"> Email:</label></td>
@@ -113,12 +147,11 @@ class Login extends Component{
                                         </select>
                                         </td>
                                     </tr>
-                                    <tr id="joinbut">
-                                        <td colspan={2}>
-                                            <input id="joinnowbttn" onCLick={this.cadastrarPost.bind(this)} value="Cadastrar"/>
-                                        </td>
-                                    </tr>
+                                    
+                                                                               
+                                      
                                 </table>
+                                <input type="button" id="joinnowbttn" onCLick={this.cadastrarUser.bind(this)} value="Cadastrar"/>
                             </form>
                             </div>
                         </div>

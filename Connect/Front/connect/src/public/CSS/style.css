@@ -8,8 +8,7 @@ body{
 
 .wrapper
 {
-	
-	
+
 	margin: 0 auto;
 	width: 960px;
 	height: 100%;
@@ -37,6 +36,10 @@ body{
 {
 	margin-top:7px;
 	margin-bottom:5px;
+	position: absolute;
+	left: 10%;
+	bottom: 2%;
+	
 
 }
 
@@ -99,6 +102,9 @@ body{
 
 
 /*==========MAIN SECTION ========*/
+.main{
+	height: 100%;
+}
 
 
 
@@ -109,6 +115,7 @@ body{
 {
 	float:right;
 	font-size: 18px;
+	transform: translateY(10%);
 
 }
 
@@ -165,13 +172,15 @@ body{
 #joinnowbttn /*---JOING NOW BUTTON ---*/
 {
 
+	
 	border:0px;
-	width: 100%;
+	width: 100%; 	 	
 	height: 34px;
 	font-size: 18px;
 	background-color: #00aeef;
 	color:white;
-	box-shadow: 0 6px 4px #999;
+	box-shadow: 0 6px 4px #999; 
+	
 }
 
 #joinnowbttn:hover
@@ -188,6 +197,8 @@ body{
 
 #joinbut
 {
+	display: flex;
+	flex-direction: row;
 	height: 130px;
 }
 

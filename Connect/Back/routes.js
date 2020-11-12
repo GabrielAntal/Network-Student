@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
-const Principal = require('./javascript/principal').default
+
 //const multerConfig = require('./multer');
 
 // configuração express
@@ -31,6 +31,7 @@ mongoose.connect('mongodb://localhost:27017/Connect',{
     useNewUrlParser: true,
     useUnifiedTopology: true 
 })
+
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -45,26 +46,19 @@ const user = new Schema({
 
 const users = mongoose.model('users', user);
 
-app.get('/', (req, res)=>{
-    res.render('main', {layout: 'index'})
+app.get('/Home', (req, res)=>{
+    res.render('Home')
 });
 
-app.get('/home', (req, res)=>{
-    res.render('home', {layout: 'homeindex'})
-});
-
-app.get('/profile', (req, res)=>{
+app.get('/Profile', (req, res)=>{
     res.render('profile', {layout: 'profileindex'})
 });
 
-app.post('/cad_post', (req,res)=>{
+app.post('/users', (req,res)=>{
     users.insertOne({nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
         tipo: req.body.tp })
         .then(function(){
-       var sts = res.status(200);
-            Principal.check(sts);
-             
-            console.log(req.body);
+            console.log(req.query.body); 
             res.end();
         }).catch((error)=>{
             console.log(error)
@@ -73,7 +67,7 @@ app.post('/cad_post', (req,res)=>{
         
 })
 
-app.get('/user', (req, res)=>{
+app.get('/users', (req, res)=>{
     users.find({email: req.query.email, pwd: req.query.senha})
     .then( function(){
         
