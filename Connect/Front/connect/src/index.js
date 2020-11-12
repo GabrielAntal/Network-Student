@@ -10,7 +10,7 @@ import Profile from './pages/Profile';
 
 render(
   <App/>,
-  document.getElementById("App")
+  document.getElementById("root")
 );
 
 reportWebVitals();

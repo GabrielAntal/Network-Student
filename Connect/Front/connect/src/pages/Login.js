@@ -60,10 +60,9 @@ class Login extends Component{
 
     render(){
         return(
+            
             <div id="App" className="App">
-                <head>
-                    <title>Connect</title>
-                </head>
+               
                 <body>
 
                     <div class="header">
@@ -88,35 +87,35 @@ class Login extends Component{
                                 <table id="signuptable">
                                     <tr>
                                         <td><label for="fname">Nome:</label></td>
-                                        <td><input type="text" id="fname" class="inputtext2" name="fname" value={this.state.fname} required/></td>
+                                        <td><input type="text" id="fname" class="inputtext2" name="fname" value={this.state.fname} onChange={this.handleChangeFName.bind(this)} required/></td>
                                     </tr>
 
                                     <tr>
                                         <td><label for="lname">RA:</label></td>
-                                        <td><input type="text" id="lname" class="inputtext2" name="lname" value={this.state.ra} required/></td>
+                                        <td><input type="text" id="lname" class="inputtext2" name="lname" value={this.state.ra} onChange={this.handleChangeRA.bind(this)} required/></td>
                                     </tr>
 
                                     <tr>
                                         <td><label for="emailadd"> Email:</label></td>
-                                        <td><input type="email" id="emailadd" class="inputtext2" name="emailid" value={this.state.emailadd} required/></td>
+                                        <td><input type="email" id="emailadd" class="inputtext2" name="emailid" value={this.state.emailadd} onChange={this.handleChangeEmailAdd.bind(this)} required/></td>
                                     </tr>
 
                                     <tr>
                                         <td><label for="pwd">Senha:</label></td>
-                                        <td><input type="password" id="pwd" class="inputtext2" name="pwd" value={this.state.pwd} required/></td>
+                                        <td><input type="password" id="pwd" class="inputtext2" name="pwd" value={this.state.pwd} onChange={this.handleChangePwd.bind(this)} required/></td>
                                     </tr>
                                     <tr>
                                         <td><label for="tp">Tipo</label></td>
                                         <td>
-                                            <select class="selector" value={this.state.tp} name="tp">
+                                            <select class="selector" value={this.state.tp} onChange={this.handleChangeTP.bind(this)} name="tp">
                                             <option value="Professor">Professor</option>
                                             <option value="Aluno">Aluno</option>
                                         </select>
                                         </td>
                                     </tr>
                                     <tr id="joinbut">
-                                        <td colspan={2} style="selectorSpan">
-                                            <input id="joinnowbttn" onCLick={cadastrarPost().bind(this)} value="Cadastrar"/>
+                                        <td colspan={2}>
+                                            <input id="joinnowbttn" onCLick={this.cadastrarPost.bind(this)} value="Cadastrar"/>
                                         </td>
                                     </tr>
                                 </table>

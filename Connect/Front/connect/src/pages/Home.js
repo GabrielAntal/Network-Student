@@ -16,10 +16,7 @@ class Home extends Component{
     render(){
         return(
             <div id="App" className="App">
-                <head>
-                    <title>Connect</title> 
-
-                </head>
+               
                 <body onload="newpost();">
                     <div class="headerfixed">
                     <div class="header">
@@ -36,7 +33,7 @@ class Home extends Component{
 
                                 <ul>
 
-                                    <li style={"border-bottom: 6px solid white"}>
+                                    <li style={{ 'border-bottom': '6px solid white' }}>
                                         <a href="home.html" onmouseover="headerchange(1);" onmouseout="headerorigin(1);">
                                             <img src={logoHome} alt="logo home" id="homaj-home"/>
                                             <p id="p1">Posts</p>
@@ -72,11 +69,11 @@ class Home extends Component{
                                 </div>
                             </div>
                             <div class="mainnotfixed" id="mainnotfixed">
-                                <div class="main mainpost" style={"margin-bottom:20px; padding-bottom:10px;"}>
+                                <div class="main mainpost" style={{'margin-bottom':'20px', 'padding-bottom':'10px'}}>
                                     <div class="userimg"><img src={logoUpload} alt="logo Upload"/>
                                         </div>
                                         <div class="username">
-                                            <p class="name" style={"top:15px;"}>Nome do usuário</p>
+                                            <p class="name" style={{top:'15px'}}>Nome do usuário</p>
                                         </div>
                                         <p class="quotes">
                                             <textarea id="mypara" placeholder="Compartilhe um artigo, foto ou vídeo.">
