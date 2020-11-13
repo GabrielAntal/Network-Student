@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import '../public/CSS/style.css';
 import logoConnect from '../public/images/OIP.jpg';
-
+import axios from 'axios';
 class Login extends Component{
 
     constructor(props) {
@@ -43,9 +43,9 @@ class Login extends Component{
         })
     }
 
-    cadastrarUser(){
-        const axios = require('axios')
-        axios.post('http://localhost:3021/users',{
+   async cadastrarUser(){
+        
+        const res =  await axios.post('http://localhost:3021/users',{
             
                 fname: this.state.fname,
                 ra: this.state.ra,
@@ -53,14 +53,12 @@ class Login extends Component{
                 pwd: this.state.pwd,
                 tp: this.state.tp
             
-        }
+        })
+    
         
-        )
-        console.log(this.state.fname)
-        console.log(this.state.ra)
-        console.log(this.state.emailadd)
-        console.log(this.state.pwd)
-        console.log(this.state.tp)
+
+
+
     }
 
     login(){
@@ -71,7 +69,7 @@ class Login extends Component{
                 senha: this.state.pwd
             }
         })
-        .then(((response) => {
+        .then((response) => {
             this.setState({
                 fname: response.name
             })
@@ -80,16 +78,16 @@ class Login extends Component{
                     name: this.state.fname
                 }
             })
-            .then(((response) =>{
+            .then((response) =>{
                 console.log(response)
-            }))
-            .catch(((error) =>{
+            })
+            .catch((error) =>{
                 console.log(error);
-            }))
-        }))
-        .catch(((error) =>{
+            })
+        })
+        .catch((error) =>{
             console.log(error);
-        }));
+        });
     }
 
     render(){
@@ -120,28 +118,28 @@ class Login extends Component{
                             <form>
                                 <table id="signuptable">
                                     <tr>
-                                        <td><label for="fname">Nome:</label></td>
-                                        <td><input type="text" id="fname" class="inputtext2" name="fname" value={this.state.fname} onChange={this.handleChangeFName.bind(this)} required/></td>
+                                        <td><label >Nome:</label></td>
+                                        <td><input type="text" id="fname" class="inputtext2"  value={this.state.fname} onChange={this.handleChangeFName.bind(this)} required/></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label for="lname">RA:</label></td>
-                                        <td><input type="text" id="lname" class="inputtext2" name="lname" value={this.state.ra} onChange={this.handleChangeRA.bind(this)} required/></td>
+                                        <td><label>RA:</label></td>
+                                        <td><input type="text" id="lname" class="inputtext2"  value={this.state.ra} onChange={this.handleChangeRA.bind(this)} required/></td>
                                     </tr>                                                               
 
                                     <tr>
-                                        <td><label for="emailadd"> Email:</label></td>
-                                        <td><input type="email" id="emailadd" class="inputtext2" name="emailid" value={this.state.emailadd} onChange={this.handleChangeEmailAdd.bind(this)} required/></td>
+                                        <td><label > Email:</label></td>
+                                        <td><input type="email" id="emailadd" class="inputtext2"  value={this.state.emailadd} onChange={this.handleChangeEmailAdd.bind(this)} required/></td>
                                     </tr>
 
                                     <tr>
-                                        <td><label for="pwd">Senha:</label></td>
-                                        <td><input type="password" id="pwd" class="inputtext2" name="pwd" value={this.state.pwd} onChange={this.handleChangePwd.bind(this)} required/></td>
+                                        <td><label >Senha:</label></td>
+                                        <td><input type="password" id="pwd" class="inputtext2"  value={this.state.pwd} onChange={this.handleChangePwd.bind(this)} required/></td>
                                     </tr>
                                     <tr>
-                                        <td><label for="tp">Tipo</label></td>
+                                        <td><label >Tipo</label></td>
                                         <td>
-                                            <select class="selector" value={this.state.tp} onChange={this.handleChangeTP.bind(this)} name="tp">
+                                            <select class="selector" value={this.state.tp} onChange={this.handleChangeTP.bind(this)} >
                                             <option value="Professor">Professor</option>
                                             <option value="Aluno">Aluno</option>
                                         </select>
@@ -151,7 +149,7 @@ class Login extends Component{
                                                                                
                                       
                                 </table>
-                                <input type="button" id="joinnowbttn" onCLick={this.cadastrarUser.bind(this)} value="Cadastrar"/>
+                                <button id="joinnowbttn" onCLick={this.cadastrarUser.bind(this)}>Cadastrar</button>
                             </form>
                             </div>
                         </div>
