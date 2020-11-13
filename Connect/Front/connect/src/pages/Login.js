@@ -55,14 +55,22 @@ class Login extends Component{
             
         })
     
-        
+        this.setState((state) => {
+            return {
+                fname: '',
+                ra: '',
+                emailadd: '',
+                pwd: '',
+                tp: ''
+            }
+        });
 
 
 
     }
 
     login(){
-        const axios = require('axios')
+        
         axios.get('http://localhost:3021/users', {
             params: {
                 email: this.state.emailadd,
@@ -115,7 +123,7 @@ class Login extends Component{
                         <div class="signup">
                             <h1>Faça seu cadastro</h1>
 
-                            <form>
+                            
                                 <table id="signuptable">
                                     <tr>
                                         <td><label >Nome:</label></td>
@@ -149,8 +157,8 @@ class Login extends Component{
                                                                                
                                       
                                 </table>
-                                <button id="joinnowbttn" onCLick={this.cadastrarUser.bind(this)}>Cadastrar</button>
-                            </form>
+                                <button id="joinnowbttn" onClick={this.cadastrarUser.bind(this)}>Cadastrar</button>
+                            
                             </div>
                         </div>
                     </div>

@@ -52,8 +52,8 @@ app.get('/Profile', (req, res)=>{
 
 app.post('/users', (req,res)=>{
     console.log('chegou');
-    users.insertOne({nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
-        tipo: req.body.tp })
+    users.insertMany([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
+        tipo: req.body.tp }])
         .then(function(){
             console.log(req.body); 
             res.end();
