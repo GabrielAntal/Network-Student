@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import {Redirect } from 'react-router-dom';
 import '../public/CSS/style.css';
 import logoConnect from '../public/images/OIP.jpg';
 import axios from 'axios';
@@ -9,13 +9,14 @@ class Login extends Component{
         super(props)
         this.state = {
             fname: '', ra: '', emailadd: '', pwd: '', tp: '', infemail: false, infcad: false, username:'', logPass:'', logEmail: '',
-            loggedIn: false, logEm: false, logVz: false, infpren:false
+            loggedIn: false, logEm: false, logVz: false, infpren:false, infinv: false
         };
         this.infemail =React.createRef();
         this.infcad =React.createRef();
         this.infpren =React.createRef();
         this.logEm =React.createRef();
         this.logVz =React.createRef();
+        this.infinv= React.createRef();
     }
 
 
@@ -81,7 +82,22 @@ class Login extends Component{
             
         }, 2500)
     }else{
-          await axios.post('http://localhost:3021/users',{
+        if ((this.state.emailadd.indexOf("@") < 1) || (this.state.emailadd.indexOf(".") < 7)) {
+            this.setState((state) => {
+                return {
+                    infinv: true 
+
+                }
+            });
+            setTimeout(() => {
+                this.setState((state) => {
+                    return {
+                        infinv: false
+                    }
+                });
+            }, 2500);
+        }else{
+            await axios.post('http://localhost:3021/users',{
             
                 fname: this.state.fname,
                 ra: this.state.ra,
@@ -121,6 +137,8 @@ class Login extends Component{
                 
             }, 2500)
         })
+        }
+
             
         
 
@@ -163,33 +181,28 @@ class Login extends Component{
            await axios.get('http://localhost:3021/users', {
                 params: {
                     email: this.state.logEmail,
-                    senha: this.state.logPass,
-                    fname: this.state.username 
+                    senha: this.state.logPass
                 }
             })
             .then((response) => {
+                       
 
                         this.setState((state)=>{
                             return{
                                 loggedIn: true
                             }
                         });
-                    
-                    
-                        this.setState((state)=>{
-                            return{
-                                loggedIn: false
-                            }
-    
-                        });
+                        console.log(this.state.loggedIn);
                         
 
                             
                       
                     
                 
-                if(this.state.loggedIn == true){
-                    <Redirect to='/Home'/>
+                if(this.state.loggedIn === true){
+                    console.log("era para redirecionar")
+                   return <Redirect from="/" to="/Home"/> ;
+                   
                 }
             })
             .catch((error) =>{
@@ -210,6 +223,12 @@ class Login extends Component{
             });
             
         }
+
+        this.setState((state)=>{
+            return{logEmail:'',
+            logPass: ''
+        }
+        })
         
        
     }
@@ -253,7 +272,7 @@ class Login extends Component{
 
                                     <tr>
                                         <td><label>RA:</label></td>
-                                        <td><input type="text" id="lname" class="inputtext2"  value={this.state.ra} onChange={this.handleChangeRA.bind(this)} required/></td>
+                                        <td><input type="number" id="lname" class="inputtext2"  value={this.state.ra} onChange={this.handleChangeRA.bind(this)} required/></td>
                                     </tr>                                                               
 
                                     <tr>
@@ -280,9 +299,12 @@ class Login extends Component{
                                       
                                 </table>
                                 {
-                                    this.state.infemail?<span class="inf email">Email já cadastrado.</span> : null   
+                                    this.state.infemail?<span class="inf email">Email já cadastrado</span> : null   
                                 }
-                                 {
+                                {
+                                    this.state.infinv?<span class="inf email">Email inválido</span> : null   
+                                }
+                                {
                                     this.state.infcad?<span class="inf cad">Cadastrado</span> : null   
                                 }
                                                                  {

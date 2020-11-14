@@ -128,13 +128,14 @@
 {
 
 	padding: 10px 10px 1px 10px;
+	height: 30px;
 }
 
 /*design button of post in postbar*/
 .main .postbar .imgbttn
 {	
 	display: inline;
-	/*float: left;*/
+	float: left;
 	font-size: 15px;
 	background-color: white;
 	border: 3px solid #615D5E;
@@ -144,6 +145,7 @@
 	left: 10px;*/
 	box-shadow: 3px 3px 5px #999999;
 }
+
 
 /*design button of post in postbar*/
 .main .postbar .postmypost

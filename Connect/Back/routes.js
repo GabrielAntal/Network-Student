@@ -100,31 +100,25 @@ app.post('/users', (req,res)=>{
         
 })
 
-app.get('/users', (req, res)=>{
-    var check = false;
+app.get('/users', async (req, res)=>{
+    
     console.log(req.query)
-    users.findOne({email: req.query.email, pwd: req.query.senha})
-    .then(function(e){
-        if(e){
-            check=true
-        }else{
-            check=false
-        }
+    var check = await users.findOne({email: req.query.email})
 
-        if(check){
+    
+       if(!check){
             
-          //  const username = res.query.fname;
-            console.log("achow")
-            res.status(200);
-            res.end();
-        }else{
-            res.status(404);
-            console.log("não achow")
+            return res.status(500).send();
         }
 
-        
-    })
+        if(req.query.senha!=check.senha){
+            
+            return res.status(404).send();
+        }
 
+
+        return res.status(200).send(check.nome); 
+        
 })
 
 /*app.post('/posts', multer(multerConfig).single('file'), (req, res)=>{ // prototipo com o multer

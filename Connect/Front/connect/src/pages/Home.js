@@ -7,6 +7,7 @@ import logoUpload from '../public/images/profile/upload.png';
 import placeHolder from '../public/images/placeholder.jpg';
 import '../public/CSS/header.css';
 import '../public/CSS/home.css';
+import '../public/CSS/style.css';
 import '../fonts/font-awesome/css/font-awesome.min.css';
 
 class Home extends Component{
@@ -137,7 +138,7 @@ newpost(){
         
         this.setState((state) => {
             return {
-                incre: incre+1
+               // incre: incre+1
             }
         });
 
@@ -266,7 +267,7 @@ mypost(){
 
 	this.setState((state) => {
             return {
-                incre: incre+1
+            //    incre: incre+1
             }
     });
 };
@@ -341,31 +342,31 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
                 <body onload="newpost();">
                     <div class="headerfixed">
                     <div class="header">
-                        <div class="wrapper">
+                        <div class="wrapper2">
                             
-                            <a href="home.html">
-                                <img src={crooped0} alt="logo Connect" width={120} height={45} class="logoletter"/>
-                            </a>
-                            <form id="searching">
-                                <input type="text" name="search" placeholder="Pesquisar" id="search"/>
-                            </form>
+                           
+                                <img src={crooped0} alt="logo Connect"  class="logoletter"/>
+                            
+                           
+                                <input type="text" name="search" placeholder="Pesquisar" class="search"/>
+                          
 
                             <div class="icon-bar">
 
                                 <ul>
 
                                     <li style={{ 'border-bottom': '6px solid white' }}>
-                                        <a href="home.html" onmouseover="headerchange(1);" onmouseout="headerorigin(1);">
-                                            <img src={logoHome} alt="logo home" id="homaj-home"/>
-                                            <p id="p1">Posts</p>
-                                        </a>
+                                        
+                                            <img src={logoHome} alt="logo home" />
+                                            
+                                        
                                     </li>
 
                                     <li>
-                                        <a href="profile.html" onmouseover="headerchange(2);" onmouseout="headerorigin(2);">
-                                            <img src={logoPerfil} alt="foto perfil" id="homaj-profile"/>
-                                            <p id="p2">Perfil</p>
-                                        </a>
+                                        
+                                            <img src={logoPerfil} alt="foto perfil" />
+                                            
+                                        
                                     </li>
 
                                 </ul>	
@@ -403,9 +404,6 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
 
                                             </textarea>
                                         </p>
-                                        <div class="post">
-                                            <img id="load2" class="postimg" src={placeHolder} alt="iamgem do post"/>
-                                        </div>
 
                                         <div class="postbar">
                                             <input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()"/>

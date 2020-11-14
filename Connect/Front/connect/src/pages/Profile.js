@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import '../public/CSS/header.css';
 import '../public/CSS/profile.css';
+import '../public/CSS/style.css';
 import logoConnect from '../public/images/OIP.jpg'
 import logoHome from '../public/images/login/home.png';
+import logoPerfil from '../public/images/login/profile.png';
+import profilePic from '../images/profile/upload.png';
 
 
 class Profile extends Component{
@@ -14,28 +17,28 @@ class Profile extends Component{
                 <body  onload="showSlides(1);">
                     <div class="headerfixed">
                     <div class="header">
-                        <div class="wrapper">
+                        <div class="wrapper2">
                             <a href="home.html">
                                 <img src={logoConnect} width={120} height={45} alt="logo Connect" class="logoletter"/>
                             </a>
 
-                            <form id="searching">
-                                <input type="text" name="search" placeholder="Search.." id="search"/>
-                            </form>
+                            
+                                <input type="text" name="search" placeholder="Procurar" class="search"/>
+                          
 
                             <div class="icon-bar">
                                 <ul>
                                     <li>
-                                        <a href="home.html" onmouseover="headerchange(1);" onmouseout="headerorigin(1);">
-                                            <img src="../images/login/home.png" alt="logo home" id="homaj-home"/>
-                                            <p id="p1">Home</p>
-                                        </a>
+                                        
+                                            <img src={logoHome} alt="logo home" />
+                                            
+                                    
                                     </li>
                                     <li style={{'border-bottom': '6px solid white'}}>
-                                        <a href="profile.html" onmouseover="headerchange(2);" onmouseout="headerorigin(2);">
-                                            <img src="../images/login/profile.png" id="homaj-profile"/>
-                                            <p id="p2">Profile</p>
-                                        </a>
+                                       
+                                            <img src={logoPerfil} id="homaj-profile"/>
+                                            
+                                        
                                     </li>
                                 </ul>	 
                             </div>
@@ -45,33 +48,10 @@ class Profile extends Component{
                     <div class="content">
                         <div class="wrapper">
                             <div class="leftfixedprofile">
-                                <div class="slideshowcontainer">
-                                    <input type="file" name="pic" class="chooseslide" accept="image/*" title="change slideshow image" onchange="loadFile(event)" onmouseover="stoptime()" onmouseout="starttime()"/>
-                                    <p class="slideEdit">&#9998;</p>
-                                    <div class="bubble">
-                                    <span class="dot" onclick="currentslide(1)"></span>
-                                    <span class="dot" onclick="currentslide(2)"></span>
-                                    <span class="dot" onclick="currentslide(3)"></span>
-                                    </div>
-                                    <div class="singleslide">
-                                        <div class="number">1/3</div>
-                                        <img src="../images/login/profile/society1.jpg" class="slidimg"/>
-                                    </div>
-                                    <div class="singleslide">
-                                        <div class="number">2/3</div>
-                                        <img src="../images/login/profile/society2.jpg" class="slidimg"/>
-                                    </div>
-                                    <div class="singleslide">
-                                        <div class="number">3/3</div>
-                                        <img src="../images/login/profile/society3.jpg" class="slidimg"/>
-                                    </div>
-                                    <div class="prev" onclick="plusSlides(-1);">&#10094;</div>
-                                    <div class="next" onclick="plusSlides(1);">&#10095;</div>
-                                </div>
                                 <div class="sidebarleftprofile">
                                     <input type="file" name="pic" class="chooseslide1" accept="image/*" onchange="loadFile1(event)" title="change profile pic"/>
                                     <p class="slideEdit1">&#9998;</p>
-                                    <img src="../images/profile/upload.png" title="Profile Pic" class="profilepic"/>
+                                    <img src={profilePic} title="Profile Pic" class="profilepic"/>
                                     <p id="sidename"> Nome Usuário</p>
                                     <p id="logout">
                                         <Link to={'./'}>
