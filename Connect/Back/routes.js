@@ -45,33 +45,84 @@ const users = mongoose.model('users', user);
 app.get('/Home', (req, res)=>{
     res.render('Home')
 });
-
+    
 app.get('/Profile', (req, res)=>{
-    res.render('profile', {layout: 'profileindex'})
+    res.render('Profile')
 });
 
 app.post('/users', (req,res)=>{
-    console.log('chegou');
-    users.insertMany([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
-        tipo: req.body.tp }])
-        .then(function(){
-            console.log(req.body); 
+    var check=false;
+     users.findOne({email: req.body.emailadd}).then(function(e) {
+        if(e){
+            check = true;
+        }else{
+            check =false;
+        }
+
+
+        if(!check){
+            
+            users.insertMany([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
+                tipo: req.body.tp }])
+                .then(function(){
+                    console.log(req.body); 
+                    res.status(200);
+                    res.end();
+                }).catch((error)=>{
+                    console.log(error)
+                })
+
+        }else{
+            res.status(403);
             res.end();
-        }).catch((error)=>{
-            console.log(error)
-        })
+
+        }
+     })
+    
+    /*    if(err){
+            users.insertMany([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
+                tipo: req.body.tp }])
+                .then(function(){
+                    console.log(req.body); 
+                    res.end();
+                }).catch((error)=>{
+                    console.log(error)
+                })
+
+        }else{
+            res.status(403);
+            res.end();
+
+        }*/
+    
+    
             
         
 })
 
 app.get('/users', (req, res)=>{
-    users.find({email: req.query.email, pwd: req.query.senha})
-    .then( function(){
+    var check = false;
+    console.log(req.query)
+    users.findOne({email: req.query.email, pwd: req.query.senha})
+    .then(function(e){
+        if(e){
+            check=true
+        }else{
+            check=false
+        }
+
+        if(check){
+            
+          //  const username = res.query.fname;
+            console.log("achow")
+            res.status(200);
+            res.end();
+        }else{
+            res.status(404);
+            console.log("não achow")
+        }
+
         
-        console.log(req.query);
-        res.end();
-    }).catch((error)=>{
-        console.log(error);
     })
 
 })

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import '../public/CSS/style.css';
 import logoConnect from '../public/images/OIP.jpg';
 import axios from 'axios';
@@ -8,10 +8,16 @@ class Login extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            fname: '', ra: '', emailadd: '', pwd: '', tp: ''
+            fname: '', ra: '', emailadd: '', pwd: '', tp: '', infemail: false, infcad: false, username:'', logPass:'', logEmail: '',
+            loggedIn: false, logEm: false, logVz: false, infpren:false
         };
-
+        this.infemail =React.createRef();
+        this.infcad =React.createRef();
+        this.infpren =React.createRef();
+        this.logEm =React.createRef();
+        this.logVz =React.createRef();
     }
+
 
     handleChangeFName(ev){
         this.setState({
@@ -43,9 +49,39 @@ class Login extends Component{
         })
     }
 
+    handleChangeLog(ev){
+        this.setState({
+            logEmail: ev.target.value
+        })
+    }
+
+    handleChangeLogp(ev){
+        this.setState({
+            logPass: ev.target.value
+        })
+    }
+
+    
+
    async cadastrarUser(){
-        
-        const res =  await axios.post('http://localhost:3021/users',{
+
+    if((this.state.fname ==="")||(this.state.ra ==="")||(this.state.emailadd ==="")||(this.state.pwd ==="")|| (this.state.tp ==="")){
+        this.setState((state)=>{
+            return{
+                infpren: true
+            }
+            
+        })
+        setTimeout(()=>{
+            this.setState((state)=>{
+                return{
+                    infpren: false
+                }
+            });
+            
+        }, 2500)
+    }else{
+          await axios.post('http://localhost:3021/users',{
             
                 fname: this.state.fname,
                 ra: this.state.ra,
@@ -53,10 +89,48 @@ class Login extends Component{
                 pwd: this.state.pwd,
                 tp: this.state.tp
             
+        }).then((response)=>{
+            console.log(response.status)
+            this.setState((state)=>{
+                return{
+                    infcad: true
+                }
+
+            })
+            setTimeout(()=>{
+                this.setState((state)=>{
+                    return{
+                        infcad: false
+                    }
+                });
+                
+            }, 2500)
+        }).catch((error)=>{
+            this.setState((state)=>{
+                return{
+                    infemail: true
+                }
+                
+            })
+            setTimeout(()=>{
+                this.setState((state)=>{
+                    return{
+                        infemail: false
+                    }
+                });
+                
+            }, 2500)
         })
-    
+            
+        
+
+    }
+        
+        
+
         this.setState((state) => {
             return {
+                username: this.state.fname,
                 fname: '',
                 ra: '',
                 emailadd: '',
@@ -69,33 +143,75 @@ class Login extends Component{
 
     }
 
-    login(){
-        
-        axios.get('http://localhost:3021/users', {
-            params: {
-                email: this.state.emailadd,
-                senha: this.state.pwd
-            }
-        })
-        .then((response) => {
-            this.setState({
-                fname: response.name
+  async  login(){
+        if((this.state.logEmail==="")||(this.state.logPass==="")){
+            this.setState((state)=>{
+                return{
+                    logVz: true
+                }
+
             })
-            axios.get('http;//localhost:3021/Home', {
+            setTimeout(()=>{
+                this.setState((state)=>{
+                    return{
+                        logVz: false
+                    }
+                });
+                
+            }, 2500)
+        }else{
+           await axios.get('http://localhost:3021/users', {
                 params: {
-                    name: this.state.fname
+                    email: this.state.logEmail,
+                    senha: this.state.logPass,
+                    fname: this.state.username 
                 }
             })
-            .then((response) =>{
-                console.log(response)
+            .then((response) => {
+
+                        this.setState((state)=>{
+                            return{
+                                loggedIn: true
+                            }
+                        });
+                    
+                    
+                        this.setState((state)=>{
+                            return{
+                                loggedIn: false
+                            }
+    
+                        });
+                        
+
+                            
+                      
+                    
+                
+                if(this.state.loggedIn == true){
+                    <Redirect to='/Home'/>
+                }
             })
             .catch((error) =>{
-                console.log(error);
-            })
-        })
-        .catch((error) =>{
-            console.log(error);
-        });
+                this.setState((state)=>{
+                    return{
+                        logEm: true
+                    }
+                });
+                setTimeout(()=>{
+                    this.setState((state)=>{
+                        return{
+                            logEm: false
+                        }
+                    });
+                    
+                }, 2500)
+               
+            });
+            
+        }
+        
+       
     }
 
     render(){
@@ -108,14 +224,19 @@ class Login extends Component{
                     <div class="header">
                         <div class="wrapper">
                             <img src={logoConnect} alt="logo Connect" width={160} height={70} class="logoletter"/>
-                            <form action="./login/home.html" class="loginuser">
-                                <div class="login" id="login">
-                                        <input placeholder="E-mail" type="text" id="email" class="inputtext" required/>
-                                        <input placeholder="Senha" type="password" id="logpassword" class="inputtext" required/>
-                                        <input type="submit" value="Logar" id="loginbutton" class="loginbutton"/>
+                            
+                                <div class="loginuser" id="login">
+                                        <input placeholder="E-mail" value={this.state.logEmail} onChange={this.handleChangeLog.bind(this)} type="text" id="email" class="inputtext" required/>
+                                        <input placeholder="Senha" value={this.state.logPass} onChange={this.handleChangeLogp.bind(this)} type="password" id="logpassword" class="inputtext" required/>
+                                        <button id="loginbutton" class="loginbutton" onClick={this.login.bind(this)}>Logar</button>
+                            
+                                       
                                 </div>
-                            </form>
+                                { this.state.logEm?<span  class="log">E-mail ou senha incorretos</span>: null} 
+                                {this.state.logVz?<span  class="log">Preencha os campos</span>: null} 
                         </div>
+                        
+                        
                     </div>
 
                     <div class="main">
@@ -148,6 +269,7 @@ class Login extends Component{
                                         <td><label >Tipo</label></td>
                                         <td>
                                             <select class="selector" value={this.state.tp} onChange={this.handleChangeTP.bind(this)} >
+                                            <option ></option>
                                             <option value="Professor">Professor</option>
                                             <option value="Aluno">Aluno</option>
                                         </select>
@@ -157,10 +279,20 @@ class Login extends Component{
                                                                                
                                       
                                 </table>
+                                {
+                                    this.state.infemail?<span class="inf email">Email já cadastrado.</span> : null   
+                                }
+                                 {
+                                    this.state.infcad?<span class="inf cad">Cadastrado</span> : null   
+                                }
+                                                                 {
+                                    this.state.infpren?<span class="inf pren">Preencha todos os campos</span> : null   
+                                }
                                 <button id="joinnowbttn" onClick={this.cadastrarUser.bind(this)}>Cadastrar</button>
-                            
+                                
                             </div>
                         </div>
+                        
                     </div>
                 </body>
             </div>

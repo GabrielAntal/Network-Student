@@ -44,13 +44,14 @@ body{
 }
 
 
-.loginuser /*--FORM--*/
+.loginuser 
 {
 	float:right;
 	margin-top: 8px;
 	color: white;
 	font-size: 14px;
 	height: auto;
+	transform: translateY(80%);
 }
 
 .login{
@@ -212,3 +213,41 @@ body{
 .selectorSpan{
 	padding-left: 40px; padding-right: 0px
 }
+
+
+.inf{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	padding-bottom: 10px;
+	
+	
+}
+
+.email{
+	color: #e92e27;
+	border-top: 2px solid #e92e27 ;
+}
+
+.cad{
+	color: #05c930;
+	border-top: 2px solid #05c930 ;
+}
+
+.pren{
+	color: #ceca04;
+	border-top: 2px solid #ceca04 ;
+}
+.log{
+	padding-left: 2px;
+	color: #ddda0d;
+	border-bottom: 1px solid #ddda0d ;
+	
+	float:right;
+	margin-top: 8px;
+	
+	font-size: 14px;
+	height: auto;
+	transform: translateY(110%);
+}
+
