@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect } from 'react-router-dom';
 import '../public/CSS/style.css';
 import logoConnect from '../public/images/OIP.jpg';
-import axios from 'axios';
+import axios from 'axios'
 class Login extends Component{
 
     constructor(props) {
@@ -138,10 +138,6 @@ class Login extends Component{
             }, 2500)
         })
         }
-
-            
-        
-
     }
         
         
@@ -162,6 +158,7 @@ class Login extends Component{
     }
 
   async  login(){
+      localStorage.clear();
         if((this.state.logEmail==="")||(this.state.logPass==="")){
             this.setState((state)=>{
                 return{
@@ -185,24 +182,19 @@ class Login extends Component{
                 }
             })
             .then((response) => {
-                       
-
                         this.setState((state)=>{
-                            return{
-                                loggedIn: true
-                            }
-                        });
-                        console.log(this.state.loggedIn);
-                        
+                    return{
+                        loggedIn: true
+                    }
+                });
+                console.log(response);
+                console.log(this.state.loggedIn);
+                localStorage.setItem('username', response.data.nome);
+                localStorage.setItem('ra', response.data.ra);
+                localStorage.setItem('email', response.data.email);
 
-                            
-                      
-                    
-                
                 if(this.state.loggedIn === true){
                     console.log("era para redirecionar")
-                   return <Redirect from="/" to="/Home"/> ;
-                   
                 }
             })
             .catch((error) =>{
@@ -234,6 +226,9 @@ class Login extends Component{
     }
 
     render(){
+        if(this.state.loggedIn){
+            return <Redirect to='/Home'/>
+        }
         return(
             
             <div id="App" className="App">
@@ -251,8 +246,8 @@ class Login extends Component{
                             
                                        
                                 </div>
-                                { this.state.logEm?<span  class="log">E-mail ou senha incorretos</span>: null} 
-                                {this.state.logVz?<span  class="log">Preencha os campos</span>: null} 
+                                {this.state.logEm?<span  class="log">E-mail ou senha incorretos</span>: null} 
+                                {this.state.logVz?<span  class="log">Preencha os campos</span>: null}
                         </div>
                         
                         

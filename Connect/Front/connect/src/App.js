@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 
+//component={() => <Login username={this.state.username} />}
+
 export default function App(){
   return (
     <Router>

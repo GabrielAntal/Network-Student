@@ -9,18 +9,83 @@ import '../public/CSS/header.css';
 import '../public/CSS/home.css';
 import '../public/CSS/style.css';
 import '../fonts/font-awesome/css/font-awesome.min.css';
+import axios from 'axios';
 
 class Home extends Component{
 
     constructor(props){
         super(props)
         this.state = {
-            incre: 3
-        }
+			incre: 3,  username: localStorage.getItem('username'), ra: localStorage.getItem('ra'), logVz: false, postBox:'', searchProfile: '',
+			foundStatus: false
+		};
+        this.logVz = React.createRef();
     };
 //For incrementing the id name for like,dislike,thumbsup and thumbsdown
-
+//username: this.props.state.username
 // function to load a new post when click on viewmore
+
+handleChangeSearchBar(ev){
+	this.setState({
+		searchProfile: ev.target.value
+	})
+}
+
+handleChangePostBox(ev){
+	this.setState({
+		postBox: ev.target.value
+	})
+}
+
+async  search(){
+	localStorage.setItem('nameProfile', " ");
+	localStorage.setItem('raProfile', " ");
+	localStorage.setItem('emailProfile', " ");
+	  if((this.state.searchProfile==="")){
+		  this.setState((state)=>{
+			  return{
+				  logVz: true
+			  }
+		  })
+		  setTimeout(()=>{
+			  this.setState((state)=>{
+				  return{
+					  logVz: false
+				  }
+			  });
+		  }, 2500)
+	  }else{
+		 await axios.get('http://localhost:3021/usersProfile', {
+			  params: {
+				  fname: this.state.searchProfile
+			  }
+		  })
+		  .then((response) => {
+				localStorage.setItem('nameProfile', response.fname)
+				localStorage.setItem('raProfile', response.ra)
+				localStorage.setItem('emailProfile', response.emailadd)
+				this.setState((state)=>{
+					foundStatus: true
+				})
+		  })
+		  .catch((error) =>{
+			  console.log(error)			 
+		  });
+	  }
+ }
+
+async postContent(){
+	axios.post('http://localhost:3021/content',{
+		postContent: this.state.postBox
+	})
+	.then((response)=>{
+		console.log(response);
+	})
+	.catch((error)=>{
+		console.log(error)
+	})
+}
+
 newpost(){
     var loader=document.getElementById("viewmore");
 	loader.className="loader";
@@ -42,13 +107,13 @@ newpost(){
 		// var hr=document.createElement("hr");
 		// parent[0].appendChild(hr);
 
-		/*============ DIV userimg ===============*/
+		/*============ DIV userimg ===============
 		var div1=document.createElement("DIV");
 		div1.className="userimg";
 		var img=document.createElement("img");
 		img.src="../images/profile/upload.png";
 		div1.appendChild(img);
-		div.appendChild(div1);
+		div.appendChild(div1); */
 
 		/*============ DIV username ===============*/
 		var div2=document.createElement("DIV");
@@ -77,10 +142,10 @@ newpost(){
 		/*============ DIV post ===============*/
 		var div3=document.createElement("DIV");
 		div3.className="post";
-		var img1=document.createElement("img");
-		img1.className="postimg";
+		//var img1=document.createElement("img");
+		//img1.className="postimg";
 		// img1.src="../images/login/society.jpg";
-		div3.appendChild(img1);
+		//div3.appendChild(img1);
 		div.appendChild(div3);
 
 		/*============ DIV likedislike ===============*/
@@ -165,12 +230,12 @@ mypost(){
 	// parent[0].insertBefore(hr, parent[0].childNodes[1]);
 
 	/*============ DIV userimg ===============*/
-	var div1=document.createElement("DIV");
-	div1.className="userimg";
-	var img=document.createElement("img");
-	img.src="../images/profile/upload.png";
-	div1.appendChild(img);
-	div.appendChild(div1);
+	//var div1=document.createElement("DIV");
+	//div1.className="userimg";
+	//var img=document.createElement("img");
+	//img.src="../images/profile/upload.png";
+	//div1.appendChild(img);
+	//div.appendChild(div1);
 
 	/*============ DIV username ===============*/
 	var div2=document.createElement("DIV");
@@ -204,12 +269,12 @@ mypost(){
 	/*============ DIV post ===============*/
 	var div3=document.createElement("DIV");
 	div3.className="post";
-	var img1=document.createElement("img");
-	img1.className="postimg";
+	//var img1=document.createElement("img");
+	//img1.className="postimg";
 	var output = document.getElementById('load2');
-    img1.src = output.src;
+    //img1.src = output.src;
     output.src="";
-	div3.appendChild(img1);
+	//div3.appendChild(img1);
 	div.appendChild(div3);
 
 	/*============ DIV likedislike ===============*/
@@ -336,6 +401,9 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
  };
 
     render(){
+		if(this.state.foundStatus){
+            return <Redirect to='/Profile'/>
+        }
         return(
             <div id="App" className="App">
                
@@ -348,25 +416,22 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
                                 <img src={crooped0} alt="logo Connect"  class="logoletter"/>
                             
                            
-                                <input type="text" name="search" placeholder="Pesquisar" class="search"/>
-                          
+                                <input type="text" name="search" placeholder="Pesquisar" value={this.state.searchProfile} class="search"/>
+								{this.state.logVz?<span  class="log">Preencha os campos</span>: null}
 
                             <div class="icon-bar">
 
                                 <ul>
 
                                     <li style={{ 'border-bottom': '6px solid white' }}>
-                                        
-                                            <img src={logoHome} alt="logo home" />
-                                            
-                                        
+											<Link to='./Home'>
+												<img src={logoHome} alt="logo home" />
+											</Link>
                                     </li>
-
                                     <li>
-                                        
-                                            <img src={logoPerfil} alt="foto perfil" />
-                                            
-                                        
+											<Link to='./Profile'>
+												<img src={logoPerfil} alt="foto perfil" />
+											</Link>
                                     </li>
 
                                 </ul>	
@@ -380,9 +445,9 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
                         <div class="wrapper">
                             <div class="leftfixed">
                                 <div class="sidebarleft">
-                                    <img src={logoUpload} alt="logo Upload"/>
-                                    <p id="sidename"> Nome usuário</p>
-                                    <p id="ssn"> Colocar RA aqui</p>
+                                    <img src={placeHolder} alt="logo Upload"/>
+									<p id="sidename">{this.state.username}</p>
+									<p id="ssn">{this.state.ra}</p>
                                     <p id="logout">
                                         <Link to={'./'}>
                                             <a>Log Out</a>
@@ -392,15 +457,15 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
                             </div>
                             <div class="mainnotfixed" id="mainnotfixed">
                                 <div class="main mainpost" style={{'margin-bottom':'20px', 'padding-bottom':'10px'}}>
-                                    <div class="userimg"><img src={logoUpload} alt="logo Upload"/>
+                                    <div class="userimg"><img src={placeHolder} alt="logo Upload"/>
                                         </div>
                                         <div class="username">
                                             <Link to={'./Profile'}>
-                                                <p class="name" style={{top:'15px'}}>Nome do usuário</p>
+                                                <p class="name" style={{top:'15px'}}>{this.state.username}</p>
                                             </Link>
                                         </div>
                                         <p class="quotes">
-                                            <textarea id="mypara" placeholder="Compartilhe um artigo, foto ou vídeo.">
+                                            <textarea id="mypara" value={this.state.postBox} placeholder="Compartilhe um artigo, foto ou vídeo.">
 
                                             </textarea>
                                         </p>
@@ -408,13 +473,13 @@ decrease(likerec,dislikerec,thumbsuprec,thumbsdownrec){
                                         <div class="postbar">
                                             <input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()"/>
                                             <button type="button" class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
-                                            <button type="button" id="postmypost" class="postmypost" onclick="mypost();">Postar</button>
+                                            <button type="button" id="postmypost" class="postmypost" onClick="mypost()" /*{this.mypost().bind(this)}*/ >Postar</button>
                                         </div>
                                 </div>
                                 <hr/>
                                 <div class="allpost">
                                 </div>
-                                <button type="button" id="viewmore" class="viewmore" onclick="newpost();">Ver mais</button>
+                                <button type="button" id="viewmore" class="viewmore" onClick="newpost()" /*{this.newpost().bind(this)}*/ >Ver mais</button>
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,15 @@ import profilePic from '../images/profile/upload.png';
 
 
 class Profile extends Component{
+
+    constructor(props){
+        super(props)
+        this.state = {
+			username: localStorage.getItem('nameProfile'), ra: localStorage.getItem('raProfile'), email: localStorage.getItem('emailProfile')
+		};
+    };
+
+
     render(){
         return(
             <div id="App" className="App">
@@ -52,7 +61,7 @@ class Profile extends Component{
                                     <input type="file" name="pic" class="chooseslide1" accept="image/*" onchange="loadFile1(event)" title="change profile pic"/>
                                     <p class="slideEdit1">&#9998;</p>
                                     <img src={profilePic} title="Profile Pic" class="profilepic"/>
-                                    <p id="sidename"> Nome Usuário</p>
+                                    <p id="sidename">{this.state.username}</p>
                                     <p id="logout">
                                         <Link to={'./'}>
                                             <a>Sair</a>
@@ -65,21 +74,13 @@ class Profile extends Component{
 
                                         <p class="slideEdit2" title="Edit" onclick="enablemodal()">&#9998;</p>
                                         <div class="tcontent">
-                                            <h2>Personal Detail</h2>
-                                            <h4>First Name:</h4>
-                                            <p>Rajkumar Rocktim</p>
-                                            <h4>Last Name:</h4>
-                                            <p>Narayan Singha</p>
+                                            <h2>Personal Details</h2>
+                                            <h4>Name:</h4>
+                                            <p>{this.state.username}</p>
                                             <h4>Email:</h4>
-                                            <p>rocktim53@gmail.com</p>
-                                            <h4>Date Of Birth:</h4>
-                                            <p>12 Feb 1997</p>
-                                            <h4>Gender:</h4>
-                                            <p>Male</p>
-                                            <h4>Phone no:</h4>
-                                            <p>8011806053</p>
-                                            <h4>Religion</h4>
-                                            <p>Hindu</p>
+                                            <p>{this.state.email}</p>
+                                            <p>RA:</p>
+                                            <p>{this.state.ra}</p>
                                         </div>
 
                                     </div>

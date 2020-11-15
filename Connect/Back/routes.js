@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
+const { json } = require('body-parser');
 
 //const multerConfig = require('./multer');
 
@@ -104,20 +105,15 @@ app.get('/users', async (req, res)=>{
     
     console.log(req.query)
     var check = await users.findOne({email: req.query.email})
-
-    
        if(!check){
-            
-            return res.status(500).send();
+            return res.status(500).send(check.nome);
         }
 
         if(req.query.senha!=check.senha){
             
-            return res.status(404).send();
+            return res.status(404).send(check.nome);
         }
-
-
-        return res.status(200).send(check.nome); 
+        return res.status(200).send(check); 
         
 })
 
