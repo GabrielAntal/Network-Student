@@ -56,6 +56,7 @@
 	float: left;
 }
 
+
 /*user name design of post and posted content*/
 .mainpost .name
 {
@@ -296,4 +297,55 @@
   box-shadow: 0 5px 4px #666;
   transform: translateY(5px);
 }
+ .name{
+	
+	padding-left: 8px;
+	font-size: 16px;
+	top: 0px;
+	font-weight: bold;
+ }
+
+.username{
+	float: left;
+	color: #525252;
+}
+
+.lin {
+	text-decoration: none;
+}
+
+.lin:visited{
+	color: #525252;
+}
+
+.post{
+	background-color: white;
+}
+
+
+
+
+
+.description{
+	margin: 12px 4px 8px 4px;
+	font-size: 14px;
+	/*letter-spacing: 0.5px;*/
+	font-family: sans-serif;
+	text-align: justify;
+	padding: 5px;
+}
+
+.description .userimg{
+	
+	width: 45px;
+	height: 45px;
+}
+
+.userimg img{
+	width: 45px;
+	height: 45px;
+	padding: 10px;
+}
+
+ 
 

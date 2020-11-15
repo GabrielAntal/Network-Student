@@ -192,6 +192,7 @@ class Login extends Component{
                 localStorage.setItem('username', response.data.nome);
                 localStorage.setItem('ra', response.data.ra);
                 localStorage.setItem('email', response.data.email);
+                localStorage.setItem('tipo', response.data.tipo);
 
                 if(this.state.loggedIn === true){
                     console.log("era para redirecionar")

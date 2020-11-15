@@ -38,9 +38,9 @@ class Profile extends Component{
                             <div class="icon-bar">
                                 <ul>
                                     <li>
-                                        
+                                        <Link to='./Home'>
                                             <img src={logoHome} alt="logo home" />
-                                            
+                                        </Link>    
                                     
                                     </li>
                                     <li style={{'border-bottom': '6px solid white'}}>
@@ -74,7 +74,7 @@ class Profile extends Component{
 
                                         <p class="slideEdit2" title="Edit" onclick="enablemodal()">&#9998;</p>
                                         <div class="tcontent">
-                                            <h2>Personal Details</h2>
+                                            <h2>Dados:</h2>
                                             <h4>Name:</h4>
                                             <p>{this.state.username}</p>
                                             <h4>Email:</h4>

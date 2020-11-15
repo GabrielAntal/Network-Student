@@ -43,6 +43,15 @@ const user = new Schema({
 
 const users = mongoose.model('users', user);
 
+const pos = new Schema({
+    id: ObjectId,
+    content: String,
+    tp: String
+});
+
+const contents = mongoose.model('contents', pos);
+
+
 app.get('/Home', (req, res)=>{
     res.render('Home')
 });
@@ -50,6 +59,28 @@ app.get('/Home', (req, res)=>{
 app.get('/Profile', (req, res)=>{
     res.render('Profile')
 });
+
+
+app.post('/content', (req, res)=>{
+    contents.insertMany([{content: req.body.postContent, tp: req.body.tp}])
+    .then(function(){
+        console.log(req.body);
+        res.status(200)
+        res.end();
+    }).catch((error)=>{
+        console.log(error)
+    })
+})
+
+
+app.get('/posts',  async(req, res)=>{
+    console.log(req.query)
+   var found=  await contents.find({tp: req.query.tp});
+   console.log(found)
+   res.send(found);
+})
+
+
 
 app.post('/users', (req,res)=>{
     var check=false;
