@@ -18,7 +18,7 @@ class Home extends Component {
 		super(props)
 		this.state = {
 			incre: 3, username: localStorage.getItem('username'), ra: localStorage.getItem('ra'), logVz: false, postBox: '', searchProfile: '',
-			foundStatus: false, tp: localStorage.getItem('tipo'), conPost:''
+			foundStatus: false, tp: localStorage.getItem('tipo'), conPost:'',  postArray: [], image: null, imageArray: []
 		};
 		this.logVz = React.createRef();
 	};
@@ -79,6 +79,9 @@ class Home extends Component {
 	}
 
 	async postContent() {
+		await axios.post('http://localhost:3021/images', {
+			postImage: this.state.image
+		})
 		await axios.post('http://localhost:3021/content', {
 			postContent: this.state.postBox,
 			tp: this.state.tp
@@ -97,17 +100,52 @@ class Home extends Component {
 
 	 sendPost() {
 
-		 axios.get('http://localhost:3021/posts', {
+		axios.get('http://localhost:3021/images')
+		.then((response)=>{
+			var img = [] = response.data.path
+			this.setState((state)=>{
+				return{
+					imageArray: img
+				}
+			});
+		})
+
+		 axios.get('http://localhost:3021/content', {
 			params: {
 				tp: this.state.tp
 			}
 
 		})
 			.then((response) => {
-				var element = '';
 				var con = [] = response.data;
-				console.log(response.data.content);
-				for (var i = 0; i < con.length; i++) {
+				console.log(response.data)
+				console.log(response.data[0].content);
+				var postNum = con.length, uiItems = [];
+				while(postNum--){
+					uiItems.push(
+						<div class="post">
+							<div class="description">
+								<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
+								<p class="name" >Usuário</p>
+								<div class="contet-post">
+									{con[postNum].content}
+									<img src={this.state.uploadPath} alt="foto do post"></img>
+								</div>
+							</div>
+						</div>
+					)
+					this.setState((state)=>{
+						return{
+							uploadPath: ''
+						}
+					})
+				}
+				this.setState((state)=>{
+					return{
+						postArray: uiItems
+					}
+				})
+				/*for (var i = 0; i < con.length; i++) {
 					//console.log(con[i]);
 					 this.setState((state)=>{
 						 return{
@@ -120,17 +158,13 @@ class Home extends Component {
 							<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
 							<p class="name" >Usuário</p>
 							<div class="contet-post">
-								bla
+								{con[i].content}
 							</div>
 						</div>
 
 					</div>
-
-
-
-
-				}
-				ReactDOM.render(element, document.getElementById('allpost'))
+				}*/
+				//ReactDOM.render(element, document.getElementById('allpost'))
 
 			})
 			.catch((error) => {
@@ -141,6 +175,7 @@ class Home extends Component {
 
 	}
 
+	//FAZER PAGINA PARA PERFIL PROPRIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	render() {
 		if (this.state.foundStatus) {
@@ -171,8 +206,8 @@ class Home extends Component {
 											</Link>
 										</li>
 										<li>
-											<Link to='./Profile'>
-												<img src={logoPerfil} alt="foto perfil" />
+											<Link to='./Profile'> 
+												<img src={logoPerfil} alt="foto perfil" /> 
 											</Link>
 										</li>
 
@@ -214,15 +249,13 @@ class Home extends Component {
 
 									<div class="postbar">
 										<input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()" />
-										<button type="button" class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
+										<button type="button" value={this.state.image} class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
 										<button type="button" id="postmypost" class="postmypost" onClick={this.postContent.bind(this)} /*{this.mypost().bind(this)}*/ >Postar</button>
 									</div>
 								</div>
 								<hr />
 								<div id="allpost" class="allpost">
-
-
-
+									{this.state.postArray}
 								</div>
 								<button type="button" id="viewmore" class="viewmore"  >Ver mais</button>
 							</div>

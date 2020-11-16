@@ -6,13 +6,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
 const { json } = require('body-parser');
+const upload = multer({dest: '../../Front/connect/src/uploads/'})
 
 //const multerConfig = require('./multer');
 
 // configuração express
 
 app.set('views', path.join(__dirname, 'views'));
-
 app.use(express.static(__dirname))
 app.use(cors());
 app.use(bodyParser.json());
@@ -51,6 +51,14 @@ const pos = new Schema({
 
 const contents = mongoose.model('contents', pos);
 
+const images = mongoose.model('images', uploads);
+
+const uploads = new Schema({
+    id: ObjectId,
+    path: String,
+    filename: String
+});
+
 
 app.get('/Home', (req, res)=>{
     res.render('Home')
@@ -73,9 +81,9 @@ app.post('/content', (req, res)=>{
 })
 
 
-app.get('/posts',  async(req, res)=>{
+app.get('/content',  async(req, res)=>{
     console.log(req.query)
-   var found=  await contents.find({tp: req.query.tp});
+   var found =  await contents.find({tp: req.query.tp});
    console.log(found)
    res.send(found);
 })
@@ -110,6 +118,32 @@ app.post('/users', (req,res)=>{
 
         }
      })
+
+
+app.post('/images', upload.single('postImage'), async (req, res)=>{
+    if(req.file === !null){
+        await images.insertMany([{path: req.path, filename: req.filename}])
+            .then(function(){
+                console.log(req.path)
+                console.log(req.filename)
+                res.status(200).send();
+                res.end()
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+    }
+    else{
+        res.status(200).send();
+        res.end();
+    }
+})
+
+app.get('/images', (req, res)=>{
+    var imageInfo = await images.find();
+    res.send(imageInfo);
+    res.end();
+})
     
     /*    if(err){
             users.insertMany([{nome: req.body.fname, ra: req.body.ra, email: req.body.emailadd, senha: req.body.pwd,
