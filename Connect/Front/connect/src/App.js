@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import Restrict from './pages/Restrict';
 
 //component={() => <Login username={this.state.username} />}
 
@@ -16,6 +17,9 @@ export default function App(){
           </Route>
           <Route path="/Home">
             <Home />
+          </Route>
+          <Route path="/Restrict">
+            <Restrict />
           </Route>
           <Route path="/Profile">
             <Profile />

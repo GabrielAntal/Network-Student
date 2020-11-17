@@ -13,16 +13,19 @@ import '../public/CSS/style.css';
 import '../fonts/font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 
-class Home extends Component {
+class Restrict extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
 			incre: 3, username: localStorage.getItem('username'), ra: localStorage.getItem('ra'), logVz: false, postBox: '', searchProfile: '',
-			foundStatus: false, tp: localStorage.getItem('tipo'), conPost:'',  postArray: [], image: null, imageShow: null
+			foundStatus: false, tp: localStorage.getItem('tipo'), conPost:'',  postArray: [], image: null, imageArray: []
 		};
 		this.logVz = React.createRef();
 	};
+	//For incrementing the id name for like,dislike,thumbsup and thumbsdown
+	//username: this.props.state.username
+	// function to load a new post when click on viewmore
 
 	handleChangeSearchBar(ev) {
 		this.setState({
@@ -33,13 +36,6 @@ class Home extends Component {
 	handleChangePostBox(ev) {
 		this.setState({
 			postBox: ev.target.value
-		})
-	}
-
-	handleChangeImage(ev){
-		var file = ev.target.files[0];
-		this.setState({
-			image: file
 		})
 	}
 
@@ -84,20 +80,14 @@ class Home extends Component {
 	}
 
 	async postContent() {
-		console.log(this.state.postImage)
+
 		if(this.state.postBox===''){
 			console.log("Empty Field")
 		}else{
 			await axios.post('http://localhost:3021/content', {
 			postContent: this.state.postBox,
-			postImage: this.state.image,
-			tp: 'geral'
-		}, {
-			headers: {
-				'content-type': 'multipart/form-data'
-			}
-		}
-		)
+			tp: this.state.tp
+		})
 			.then((response) => {
 				console.log(response.data);
 				this.sendPost();
@@ -109,9 +99,9 @@ class Home extends Component {
 
 		}
 
-		
-			
-		
+		/*await axios.post('http://localhost:3021/images', {
+			postImage: this.state.image
+		})*/
 		
 
 			this.setState((state)=>{
@@ -126,7 +116,7 @@ class Home extends Component {
 
 	 sendPost() {
 
-		/*axios.get('http://localhost:3021/images')
+		axios.get('http://localhost:3021/images')
 		.then((response)=>{
 			var img = [] = response.data.path
 			this.setState((state)=>{
@@ -134,36 +124,31 @@ class Home extends Component {
 					imageArray: img
 				}
 			});
-		})*/
+		})
 
 		 axios.get('http://localhost:3021/content', {
 			params: {
-				tp: 'geral'
+				tp: this.state.tp
 			}
+
 		})
 			.then((response) => {
-				
 				var con = [] = response.data;
 				console.log(response.data)
 				console.log(response.data[0].content);
 				var postNum = con.length, uiItems = [];
 				while(postNum--){
-					var filePath = "../../images/uploads" + con[postNum].imageName
-					this.setState((state)=>{
-						return{
-							imageShow: filePath
-						}
-					})
 					uiItems.push(
 						<div class="post">
 							<div class="description">
 								<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
-								<p class="name" >{this.state.username}</p>
+								<p class="name" >Usuário</p>
 								<div class="content-post">
 									{con[postNum].content}
+									
 								</div>
 								<div class="img-post">
-									<img src={this.state.imageShow} alt="foto do post"></img>
+									<img src={this.state.uploadPath} alt="foto do post"></img>
 								</div>
 							</div>
 						</div>
@@ -214,9 +199,8 @@ class Home extends Component {
 
 	render() {
 		if (this.state.foundStatus) {
-			return <Redirect to='/ProfileSearched' />
+			return <Redirect to='/Profile' />
 		}
-		
 		return (
 			<div id="App" className="App">
 
@@ -236,7 +220,7 @@ class Home extends Component {
 
 									<ul>
 
-										<li style={{ 'border-bottom': '6px solid white' }}>
+										<li >
 											<Link to='./Home'>
 												<img src={logoHome} alt="logo home" />
 											</Link>
@@ -246,11 +230,8 @@ class Home extends Component {
 												<img src={logoPerfil} alt="foto perfil" /> 
 											</Link>
 										</li>
-										<li>
-											<Link to='./Restrict'>
-												<img src={logoRestrict} alt="restrict" />
-											</Link>
-											
+										<li style={{ 'border-bottom': '6px solid white' }}>
+											<img src={logoRestrict} alt="restrict" />
 										</li>
 
 									</ul>
@@ -290,8 +271,8 @@ class Home extends Component {
 									</p>
 
 									<div class="postbar">
-										<input type="file" accept="images/*" id="chooseimg" onchange={this.handleChangeImage.bind(this)} onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()" />
-										<button type="button" class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
+										<input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()" />
+										<button type="button" value={this.state.image} class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
 										<button type="button" id="postmypost" class="postmypost" onClick={this.postContent.bind(this)} /*{this.mypost().bind(this)}*/ >Postar</button>
 									</div>
 								</div>
@@ -311,4 +292,4 @@ class Home extends Component {
 }
 
 
-export default Home;
+export default Restrict;

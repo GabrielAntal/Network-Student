@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
 const { json } = require('body-parser');
-const upload = multer({dest: '../../Front/connect/src/uploads/'})
+const upload = multer({dest: '../../Front/connect/src/uploads/', preservePath: true})
 
 //const multerConfig = require('./multer');
 
@@ -46,18 +46,14 @@ const users = mongoose.model('users', user);
 const pos = new Schema({
     id: ObjectId,
     content: String,
-    tp: String
+    tp: String,
+    imageName: String
 });
 
 const contents = mongoose.model('contents', pos);
 
-const images = mongoose.model('images', uploads);
 
-const uploads = new Schema({
-    id: ObjectId,
-    path: String,
-    filename: String
-});
+
 
 
 app.get('/Home', (req, res)=>{
@@ -69,8 +65,9 @@ app.get('/Profile', (req, res)=>{
 });
 
 
-app.post('/content', (req, res)=>{
-    contents.insertMany([{content: req.body.postContent, tp: req.body.tp}])
+app.post('/content', upload.single('postImage'), (req, res)=>{
+    var contentPost = JSON.parse(req.body)
+    contents.insertMany([{content: contentPost.postContent, tp: contentPost.tp, imageName: req.file.originalname}])
     .then(function(){
         console.log(req.body);
         res.status(200)
@@ -127,7 +124,7 @@ app.post('/images', upload.single('postImage'), async (req, res)=>{
                 console.log(req.path)
                 console.log(req.filename)
                 res.status(200).send();
-                res.end()
+                res.end() 
             })
             .catch((error)=>{
                 console.log(error)
@@ -139,7 +136,7 @@ app.post('/images', upload.single('postImage'), async (req, res)=>{
     }
 })
 
-app.get('/images', (req, res)=>{
+ app.get('/images', async(req, res)=>{
     var imageInfo = await images.find();
     res.send(imageInfo);
     res.end();

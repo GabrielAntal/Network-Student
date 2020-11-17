@@ -10,7 +10,7 @@ import logoRestrict from '../images/login/restrict.svg';
 import profilePic from '../images/profile/upload.png';
 
 
-class Profile extends Component{
+class ProfileSearched extends Component{
 
     constructor(props){
         super(props)
