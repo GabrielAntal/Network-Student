@@ -64,6 +64,10 @@ app.get('/Profile', (req, res)=>{
     res.render('Profile')
 });
 
+app.get('/ProfileSearched', (req, res)=>{
+    res.render('ProfileSearched')
+})
+
 
 app.post('/content', upload.single('postImage'), (req, res)=>{
     var contentPost = JSON.parse(req.body)
@@ -115,7 +119,6 @@ app.post('/users', (req,res)=>{
 
         }
      })
-
 
 app.post('/images', upload.single('postImage'), async (req, res)=>{
     if(req.file === !null){
@@ -177,6 +180,15 @@ app.get('/users', async (req, res)=>{
         }
         return res.status(200).send(check); 
         
+})
+
+app.get('/usersProfile', async (req, res)=>{
+    console.log(req.query)
+    var check = await users.findOne({nome: req.query.fname})
+       if(!check){
+            return res.status(500).send(check.nome);
+        }
+        return res.status(200).send(check); 
 })
 
 /*app.post('/posts', multer(multerConfig).single('file'), (req, res)=>{ // prototipo com o multer

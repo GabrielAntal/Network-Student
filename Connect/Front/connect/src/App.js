@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Restrict from './pages/Restrict';
+import ProfileSearched from './pages/ProfileSearched';
 
 //component={() => <Login username={this.state.username} />}
 
@@ -23,6 +24,9 @@ export default function App(){
           </Route>
           <Route path="/Profile">
             <Profile />
+          </Route>
+          <Route path="/ProfileSearched">
+            <ProfileSearched />
           </Route>
       </Switch>
     </Router>

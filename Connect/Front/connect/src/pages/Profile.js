@@ -15,7 +15,7 @@ class Profile extends Component{
     constructor(props){
         super(props)
         this.state = {
-			username: localStorage.getItem('nameProfile'), ra: localStorage.getItem('raProfile'), email: localStorage.getItem('emailProfile')
+			username: localStorage.getItem('username'), ra: localStorage.getItem('ra'), email: localStorage.getItem('email')
 		};
     };
 
@@ -28,11 +28,12 @@ class Profile extends Component{
                     <div class="headerfixed">
                     <div class="header">
                         <div class="wrapper2">
-                            <a href="home.html">
-                                <img src={logoConnect} width={120} height={45} alt="logo Connect" class="logoletter"/>
-                            </a>
-
-                            
+                            <Link to='./Home'>
+                                <a>
+                                    <img src={logoConnect} width={120} height={45} alt="logo Connect" class="logoletter"/>
+                                </a>
+                            </Link>
+            
                                 <input type="text" name="search" placeholder="Procurar" class="search"/>
                           
 

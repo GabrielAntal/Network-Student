@@ -24,6 +24,12 @@ class Home extends Component {
 		this.logVz = React.createRef();
 	};
 
+	handlePressSearchBar(ev){
+		if(ev.key === 'Enter'){
+			this.search()
+		}
+	}
+
 	handleChangeSearchBar(ev) {
 		this.setState({
 			searchProfile: ev.target.value
@@ -67,9 +73,9 @@ class Home extends Component {
 				}
 			})
 				.then((response) => {
-					localStorage.setItem('nameProfile', response.fname)
-					localStorage.setItem('raProfile', response.ra)
-					localStorage.setItem('emailProfile', response.emailadd)
+					localStorage.setItem('nameProfile', response.data.nome)
+					localStorage.setItem('raProfile', response.data.ra)
+					localStorage.setItem('emailProfile', response.data.email)
 					this.setState((state) => {
 						return {
 							foundStatus: true
@@ -214,9 +220,8 @@ class Home extends Component {
 
 	render() {
 		if (this.state.foundStatus) {
-			return <Redirect to='/ProfileSearched' />
+			return <Redirect to='./ProfileSearched' />
 		}
-		
 		return (
 			<div id="App" className="App">
 
@@ -229,7 +234,7 @@ class Home extends Component {
 								<img src={crooped0} alt="logo Connect" class="logoletter" />
 
 
-								<input type="text" name="search" placeholder="Pesquisar" value={this.state.searchProfile} class="search" />
+								<input type="text" name="search" placeholder="Pesquisar" value={this.state.searchProfile} onKeyUp={this.handlePressSearchBar.bind(this)} onChange={this.handleChangeSearchBar.bind(this)} class="search" />
 								{this.state.logVz ? <span class="log">Preencha os campos</span> : null}
 
 								<div class="icon-bar">
@@ -264,7 +269,7 @@ class Home extends Component {
 						<div class="wrapper">
 							<div class="leftfixed">
 								<div class="sidebarleft">
-									<img src={placeHolder} alt="logo Upload" />
+									<img src={logoUpload} alt="logo Upload" />
 									<p id="sidename">{this.state.username}</p>
 									<p id="ssn">{this.state.ra}</p>
 									<p id="logout">
@@ -276,7 +281,7 @@ class Home extends Component {
 							</div>
 							<div class="mainnotfixed" id="mainnotfixed">
 								<div class="main mainpost" style={{ 'margin-bottom': '20px', 'padding-bottom': '10px' }}>
-									<div class="userimg"><img src={placeHolder} alt="logo Upload" />
+									<div class="userimg"><img src={logoUpload} alt="logo Upload" />
 									</div>
 									<div class="username">
 										<Link class="lin" to={'./Profile'}>

@@ -28,11 +28,12 @@ class ProfileSearched extends Component{
                     <div class="headerfixed">
                     <div class="header">
                         <div class="wrapper2">
-                            <a href="home.html">
-                                <img src={logoConnect} width={120} height={45} alt="logo Connect" class="logoletter"/>
-                            </a>
+                            <Link to='./Home'>
+                                <a>
+                                    <img src={logoConnect} width={120} height={45} alt="logo Connect" class="logoletter"/>
+                                </a>
+                            </Link>
 
-                            
                                 <input type="text" name="search" placeholder="Procurar" class="search"/>
                           
 
@@ -139,4 +140,4 @@ class ProfileSearched extends Component{
 }
 
 
-export default Profile;
+export default ProfileSearched;
