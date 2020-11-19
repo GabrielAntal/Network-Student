@@ -70,8 +70,9 @@ app.get('/ProfileSearched', (req, res)=>{
 
 
 app.post('/content', upload.single('postImage'), (req, res)=>{
-    var contentPost = JSON.parse(req.body)
-    contents.insertMany([{content: contentPost.postContent, tp: contentPost.tp, imageName: req.file.originalname}])
+    console.log(req.file)
+    console.log(req.body);
+    contents.insertMany([{content: req.body.postContent, tp: req.body.tp, imageName: req.file.filename}])
     .then(function(){
         console.log(req.body);
         res.status(200)

@@ -12,6 +12,7 @@ import '../public/CSS/home.css';
 import '../public/CSS/style.css';
 import '../fonts/font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
+import FormData from 'form-data';
 
 class Home extends Component {
 
@@ -19,7 +20,7 @@ class Home extends Component {
 		super(props)
 		this.state = {
 			incre: 3, username: localStorage.getItem('username'), ra: localStorage.getItem('ra'), logVz: false, postBox: '', searchProfile: '',
-			foundStatus: false, tp: localStorage.getItem('tipo'), conPost:'',  postArray: [], image: null, imageShow: null
+			foundStatus: false, tp: localStorage.getItem('tipo'), conPost:'',  postArray: [], image: null, imageShow: null, postImage: null
 		};
 		this.logVz = React.createRef();
 	};
@@ -43,9 +44,9 @@ class Home extends Component {
 	}
 
 	handleChangeImage(ev){
-		var file = ev.target.files[0];
+		
 		this.setState({
-			image: file
+			image: ev.target.files[0]
 		})
 	}
 
@@ -90,17 +91,23 @@ class Home extends Component {
 	}
 
 	async postContent() {
-		console.log(this.state.postImage)
+	/*	let data = new FormData();
+		data.append('file', this.state.image, this.state.image.fileName);*/
+	
+		
 		if(this.state.postBox===''){
 			console.log("Empty Field")
 		}else{
-			await axios.post('http://localhost:3021/content', {
-			postContent: this.state.postBox,
-			postImage: this.state.image,
-			tp: 'geral'
-		}, {
+			const formData = new FormData();
+			formData.append("postContent", this.state.postBox);
+			formData.append("postImage", this.state.image);
+			formData.append("tp", "geral");
+			await axios.post('http://localhost:3021/content',
+			formData, 
+			{
 			headers: {
-				'content-type': 'multipart/form-data'
+
+				'Content-Type': 'multipart/form-data; boundary=${formData._boundary}',
 			}
 		}
 		)
@@ -295,8 +302,9 @@ class Home extends Component {
 									</p>
 
 									<div class="postbar">
-										<input type="file" accept="images/*" id="chooseimg" onchange={this.handleChangeImage.bind(this)} onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()" />
-										<button type="button" class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
+										<input type="file" id="chooseimg"  onChange={this.handleChangeImage.bind(this)} ref={fileInput => this.fileInput = fileInput} />
+										<button type="button" class="imgbttn" onClick={() => this.fileInput.click()} id="imgbttn">&#x1f4f7; Arquivos</button>
+										
 										<button type="button" id="postmypost" class="postmypost" onClick={this.postContent.bind(this)} /*{this.mypost().bind(this)}*/ >Postar</button>
 									</div>
 								</div>

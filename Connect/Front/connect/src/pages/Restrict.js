@@ -141,7 +141,7 @@ class Restrict extends Component {
 					uiItems.push(
 						<div class="post">
 							<div class="description">
-								<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
+								<div class="userimg"><img src={logoUpload} alt="logo Upload" /></div>
 								<p class="name" >Usuário</p>
 								<div class="content-post">
 									{con[postNum].content}
@@ -194,7 +194,7 @@ class Restrict extends Component {
 
 	}
 
-	//FAZER PAGINA PARA PERFIL PROPRIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 	
 
 	render() {
@@ -245,7 +245,7 @@ class Restrict extends Component {
 						<div class="wrapper">
 							<div class="leftfixed">
 								<div class="sidebarleft">
-									<img src={placeHolder} alt="logo Upload" />
+									<img src={logoUpload} alt="logo Upload" />
 									<p id="sidename">{this.state.username}</p>
 									<p id="ssn">{this.state.ra}</p>
 									<p id="logout">
@@ -257,7 +257,7 @@ class Restrict extends Component {
 							</div>
 							<div class="mainnotfixed" id="mainnotfixed">
 								<div class="main mainpost" style={{ 'margin-bottom': '20px', 'padding-bottom': '10px' }}>
-									<div class="userimg"><img src={placeHolder} alt="logo Upload" />
+									<div class="userimg"><img src={logoUpload} alt="logo Upload" />
 									</div>
 									<div class="username">
 										<Link class="lin" to={'./Profile'}>
