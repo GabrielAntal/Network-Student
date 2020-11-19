@@ -1,4 +1,4 @@
-import React, { Component, createElement } from 'react';
+import React, { Component, createElement, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import crooped0 from '../public/images/OIP.jpg';
 import logoHome from '../public/images/login/home.png';
@@ -201,8 +201,6 @@ class Home extends Component {
 
 
 	}
-
-	//FAZER PAGINA PARA PERFIL PROPRIO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 
 	render() {
@@ -292,6 +290,7 @@ class Home extends Component {
 									</div>
 								</div>
 								<hr />
+								<button type="button" id="viewmore" class="viewmore" onClick={this.sendPost.bind(this)}>Ver mais</button>
 								<div id="allpost" class="allpost">
 									{this.state.postArray}
 								</div>
