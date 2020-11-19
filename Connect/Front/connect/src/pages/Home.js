@@ -14,6 +14,7 @@ import '../fonts/font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
 import FormData from 'form-data';
 
+
 class Home extends Component {
 
 	constructor(props) {
@@ -157,17 +158,18 @@ class Home extends Component {
 			.then((response) => {
 				
 				var con = [] = response.data;
-				console.log(response.data)
-				console.log(response.data[0].content);
+				//console.log(response.data)
+				//console.log(response.data[0].content);
 				var postNum = con.length, uiItems = [];
 				while(postNum--){
-					var filePath = "../../images/uploads" + con[postNum].imageName
+					console.log(con[postNum])
 					this.setState((state)=>{
 						return{
-							imageShow: filePath
+							imageShow: con[postNum].imageName
 						}
 					})
-					uiItems.push(
+					console.log(this.state.imageShow);
+					uiItems.push(// Front\connect\src\uploads + 
 						<div class="post">
 							<div class="description">
 								<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
@@ -176,7 +178,7 @@ class Home extends Component {
 									{con[postNum].content}
 								</div>
 								<div class="img-post">
-									<img src={this.state.imageShow} alt="foto do post"></img>
+									<img src={this.state.imageShow} alt="foto do post"/>
 								</div>
 							</div>
 						</div>

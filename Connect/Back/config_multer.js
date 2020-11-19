@@ -10,7 +10,7 @@ module.exports = {
             cb(null, path.resolve(__dirname,"..", "..", "Front", "connect", "src", "uploads"));
         },
         filename: (req, file, cb)=>{
-            const fileName = file.originalname
+            const fileName = file.originalname;
             cb(null, fileName);
         },
 
@@ -21,6 +21,7 @@ module.exports = {
     fileFilter:(req, file, cb)=>{
         const allowedMimes=[
             'image/jpg',
+            'image/jpeg',
             'image/pjpeg',
             'image/png',
             'video/mp4',
