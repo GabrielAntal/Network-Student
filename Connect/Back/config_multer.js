@@ -4,10 +4,10 @@ const crypto = require("crypto");
 
 
 module.exports = {
-    dest: path.resolve(__dirname,"..", "..", "Connect", "Front", "connect", "src", "uploads"),
+    dest: path.resolve(__dirname,"..", "..", "Connect", "Front", "connect", "src", "images", "uploads"),
     storage: multer.diskStorage({
         destination: (req, file, cb)=>{
-            cb(null, path.resolve(__dirname,"..", "..", "Connect", "Front", "connect", "src", "uploads"));
+            cb(null, path.resolve(__dirname, "..", "..", "Connect", "Front", "connect", "src", "images", "uploads"));
         },
         filename: (req, file, cb)=>{
             const fileName = file.originalname;

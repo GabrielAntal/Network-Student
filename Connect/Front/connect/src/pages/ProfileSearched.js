@@ -64,21 +64,16 @@ class ProfileSearched extends Component{
                         <div class="wrapper">
                             <div class="leftfixedprofile">
                                 <div class="sidebarleftprofile">
-                                    <input type="file" name="pic" class="chooseslide1" accept="image/*" onchange="loadFile1(event)" title="change profile pic"/>
-                                    <p class="slideEdit1">&#9998;</p>
+                              
                                     <img src={profilePic} title="Profile Pic" class="profilepic"/>
                                     <p id="sidename">{this.state.username}</p>
-                                    <p id="logout">
-                                        <Link to={'./'}>
-                                            <a>Sair</a>
-                                        </Link>
-                                    </p>
+                                   
                                 </div>
                                 <div class="timeline">
 
                                     <div class="container left">
 
-                                        <p class="slideEdit2" title="Edit" onclick="enablemodal()">&#9998;</p>
+                                    
                                         <div class="tcontent">
                                             <h2>Dados:</h2>
                                             <h4>Name:</h4>

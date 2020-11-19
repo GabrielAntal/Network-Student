@@ -13,7 +13,10 @@ const multerConfig = require('./config_multer');
 // configuração express
 
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(__dirname)) 
+app.use(express.static(__dirname))
+var testecaminho = path.join(__dirname, "..", "..", "Connect", "Front", "connect", "src", "images", "uploads")
+console.log(testecaminho)
+app.use('/static', express.static(path.join(__dirname, "..", "..", "Connect", "Front", "connect", "src", "images", "uploads")))
 app.use(cors());
 app.use(bodyParser.json());
 //app.use(express.urlencoded({extended: false}));
@@ -73,7 +76,7 @@ app.get('/ProfileSearched', (req, res)=>{
 app.post('/content', multer(multerConfig).single('postImage'), (req, res)=>{
     
     
-    contents.insertMany([{content: req.body.postContent, tp: req.body.tp, imageName: req.file.path}])
+    contents.insertMany([{content: req.body.postContent, tp: req.body.tp, imageName: req.file.originalname}])
     .then(function(){
         
         res.status(200)

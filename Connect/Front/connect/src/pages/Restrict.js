@@ -26,6 +26,11 @@ class Restrict extends Component {
 	//For incrementing the id name for like,dislike,thumbsup and thumbsdown
 	//username: this.props.state.username
 	// function to load a new post when click on viewmore
+	handlePressSearchBar(ev){
+		if(ev.key === 'Enter'){
+			this.search()
+		}
+	}
 
 	handleChangeSearchBar(ev) {
 		this.setState({
@@ -36,6 +41,13 @@ class Restrict extends Component {
 	handleChangePostBox(ev) {
 		this.setState({
 			postBox: ev.target.value
+		})
+	}
+
+	handleChangeImage(ev){
+		
+		this.setState({
+			image: ev.target.files[0]
 		})
 	}
 
@@ -80,75 +92,83 @@ class Restrict extends Component {
 	}
 
 	async postContent() {
-
-		if(this.state.postBox===''){
-			console.log("Empty Field")
-		}else{
-			await axios.post('http://localhost:3021/content', {
-			postContent: this.state.postBox,
-			tp: this.state.tp
-		})
-			.then((response) => {
-				console.log(response.data);
-				this.sendPost();
-			})
-			.catch((error) => {
-				console.log(error)
-			})
-
-
+		/*	let data = new FormData();
+			data.append('file', this.state.image, this.state.image.fileName);*/
+		
+			
+			if(this.state.postBox===''){
+				console.log("Empty Field")
+			}else{
+				const formData = new FormData();
+				formData.append("postContent", this.state.postBox);
+				formData.append("postImage", this.state.image);
+				formData.append("tp", this.state.tp);
+				await axios.post('http://localhost:3021/content',
+				formData, 
+				{
+				headers: {
+	
+					'Content-Type': 'multipart/form-data; boundary=${formData._boundary}',
+				}
+			}
+			)
+				.then((response) => {
+					console.log(response.data);
+					this.sendPost();
+				})
+				.catch((error) => {
+					console.log(error)
+				})
+			}
+				this.setState((state)=>{
+					return{
+						postBox: ''
+					}
+				})
 		}
 
-		/*await axios.post('http://localhost:3021/images', {
-			postImage: this.state.image
-		})*/
+
+
+
+	sendPost() {
+
 		
-
-			this.setState((state)=>{
-				return{
-					postBox: ''
-				}
-			})
-	}
-
-
-
-
-	 sendPost() {
-
-		axios.get('http://localhost:3021/images')
-		.then((response)=>{
-			var img = [] = response.data.path
-			this.setState((state)=>{
-				return{
-					imageArray: img
-				}
-			});
-		})
 
 		 axios.get('http://localhost:3021/content', {
 			params: {
 				tp: this.state.tp
 			}
-
 		})
 			.then((response) => {
+				
 				var con = [] = response.data;
-				console.log(response.data)
-				console.log(response.data[0].content);
+				//console.log(response.data)
+				//console.log(response.data[0].content);
 				var postNum = con.length, uiItems = [];
 				while(postNum--){
-					uiItems.push(
+					console.log(con[postNum])
+					var imageNameString = "http://localhost:3021/static/" + JSON.stringify(con[postNum].imageName)
+					imageNameString = imageNameString.replace(/"/g, "")
+					this.setState((state)=>{
+						this.state.imageShow = imageNameString
+					})
+					
+					//const images = require.context('../images/uploads', true);
+					//let img = images('src/images/uploads/' + this.state.imageShow);
+					//console.log(img);
+					
+					//console.log(image)
+					console.log(this.state.imageShow);
+					uiItems.push(// Front\connect\src\uploads + 
 						<div class="post">
 							<div class="description">
 								<div class="userimg"><img src={logoUpload} alt="logo Upload" /></div>
-								<p class="name" >Usuário</p>
+								<p class="name" >{this.state.username}</p>
 								<div class="content-post">
 									{con[postNum].content}
-									
 								</div>
 								<div class="img-post">
-									<img src={this.state.uploadPath} alt="foto do post"></img>
+									<img src={imageNameString} alt="foto do post"/>
 								</div>
 							</div>
 						</div>
@@ -271,8 +291,8 @@ class Restrict extends Component {
 									</p>
 
 									<div class="postbar">
-										<input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()" />
-										<button type="button" value={this.state.image} class="imgbttn" id="imgbttn">&#x1f4f7; Arquivos</button>
+										<input type="file" id="chooseimg"  onChange={this.handleChangeImage.bind(this)} ref={fileInput => this.fileInput = fileInput} />
+										<button type="button" class="imgbttn" onClick={() => this.fileInput.click()} id="imgbttn">&#x1f4f7; Arquivos</button>
 										<button type="button" id="postmypost" class="postmypost" onClick={this.postContent.bind(this)} /*{this.mypost().bind(this)}*/ >Postar</button>
 									</div>
 								</div>

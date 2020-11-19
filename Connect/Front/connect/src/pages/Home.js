@@ -140,15 +140,7 @@ class Home extends Component {
 
 	 sendPost() {
 
-		/*axios.get('http://localhost:3021/images')
-		.then((response)=>{
-			var img = [] = response.data.path
-			this.setState((state)=>{
-				return{
-					imageArray: img
-				}
-			});
-		})*/
+		
 
 		 axios.get('http://localhost:3021/content', {
 			params: {
@@ -163,22 +155,28 @@ class Home extends Component {
 				var postNum = con.length, uiItems = [];
 				while(postNum--){
 					console.log(con[postNum])
+					var imageNameString = "http://localhost:3021/static/" + JSON.stringify(con[postNum].imageName)
+					imageNameString = imageNameString.replace(/"/g, "")
 					this.setState((state)=>{
-						return{
-							imageShow: con[postNum].imageName
-						}
+						this.state.imageShow = imageNameString
 					})
+					
+					//const images = require.context('../images/uploads', true);
+					//let img = images('src/images/uploads/' + this.state.imageShow);
+					//console.log(img);
+					
+					//console.log(image)
 					console.log(this.state.imageShow);
 					uiItems.push(// Front\connect\src\uploads + 
 						<div class="post">
 							<div class="description">
-								<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
+								<div class="userimg"><img src={logoUpload} alt="logo Upload" /></div>
 								<p class="name" >{this.state.username}</p>
 								<div class="content-post">
 									{con[postNum].content}
 								</div>
 								<div class="img-post">
-									<img src={this.state.imageShow} alt="foto do post"/>
+									<img src={imageNameString} alt="foto do post"/>
 								</div>
 							</div>
 						</div>
@@ -194,27 +192,7 @@ class Home extends Component {
 						postArray: uiItems
 					}
 				})
-				/*for (var i = 0; i < con.length; i++) {
-					//console.log(con[i]);
-					 this.setState((state)=>{
-						 return{
-							conPost: con[i]
-						 }
-						 
-					 })
-					 element = <div class="post">
-						<div class="description">
-							<div class="userimg"><img src={placeHolder} alt="logo Upload" /></div>
-							<p class="name" >Usuário</p>
-							<div class="contet-post">
-								{con[i].content}
-							</div>
-						</div>
-
-					</div>
-				}*/
-				//ReactDOM.render(element, document.getElementById('allpost'))
-
+			
 			})
 			.catch((error) => {
 				console.log(error)
@@ -228,13 +206,17 @@ class Home extends Component {
 	
 
 	render() {
+		
 		if (this.state.foundStatus) {
 			return <Redirect to='./ProfileSearched' />
 		}
-		return (
-			<div id="App" className="App">
 
-				<body onload="newpost();">
+		
+		return (
+			
+			<div id="App" className="App" >
+				
+				<body >
 					<div class="headerfixed">
 						<div class="header">
 							<div class="wrapper2">
@@ -306,7 +288,6 @@ class Home extends Component {
 									<div class="postbar">
 										<input type="file" id="chooseimg"  onChange={this.handleChangeImage.bind(this)} ref={fileInput => this.fileInput = fileInput} />
 										<button type="button" class="imgbttn" onClick={() => this.fileInput.click()} id="imgbttn">&#x1f4f7; Arquivos</button>
-										
 										<button type="button" id="postmypost" class="postmypost" onClick={this.postContent.bind(this)} /*{this.mypost().bind(this)}*/ >Postar</button>
 									</div>
 								</div>

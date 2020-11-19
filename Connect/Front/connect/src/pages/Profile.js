@@ -64,8 +64,7 @@ class Profile extends Component{
                         <div class="wrapper">
                             <div class="leftfixedprofile">
                                 <div class="sidebarleftprofile">
-                                    <input type="file" name="pic" class="chooseslide1" accept="image/*" onchange="loadFile1(event)" title="change profile pic"/>
-                                    <p class="slideEdit1">&#9998;</p>
+                                   
                                     <img src={profilePic} title="Profile Pic" class="profilepic"/>
                                     <p id="sidename">{this.state.username}</p>
                                     <p id="logout">
@@ -78,7 +77,7 @@ class Profile extends Component{
 
                                     <div class="container left">
 
-                                        <p class="slideEdit2" title="Edit" onclick="enablemodal()">&#9998;</p>
+                         
                                         <div class="tcontent">
                                             <h2>Dados:</h2>
                                             <h4>Name:</h4>
@@ -98,9 +97,9 @@ class Profile extends Component{
 
                                 <div class="modal animate">
                                     <div class="Edit">
-                                        <span class="close" title="Close Modal" onclick="disablemodal(0)">&times;</span>
+                                        <span class="close" title="Close Modal" onClick="disablemodal(0)">&times;</span>
                                         <h2 align="center">Personal Detail Edit</h2>
-                                        <form action="#" onsubmit="return false">
+                                        <form action="#" onSubmit="return false">
                                             <br/>
                                             <label for="fname">First Name</label>
                                             <br/>
@@ -121,7 +120,7 @@ class Profile extends Component{
                                             <button type="submit" onclick="update1()">Update</button>
 
                                             <br/>
-                                        <button type="button" class="cancelbtn" onclick="disablemodal(0)">Cancel</button>
+                                        <button type="button" class="cancelbtn" onClick="disablemodal(0)">Cancel</button>
                                         <br/>
                                         </form>
 
